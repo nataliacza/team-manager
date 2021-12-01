@@ -1,0 +1,26 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'app.css' %}">
+    <title>{% block title %}Team Manager{% endblock %}</title>
+    {% block css_files %}{% endblock %}
+</head>
+
+<body>
+<header id="main-navigation">
+    <nav>
+        <a href="#">Kalendarz</a>
+        <a href="#">Zespół</a>
+        <a href="#">Psy</a>
+        <a href="#">Spręt</a>
+        <a href="#">Alarm</a>
+        <a href="#">Zalogowany</a>
+    </nav>
+</header>
+{% block content %}{% endblock %}
+</body>
+</html>
