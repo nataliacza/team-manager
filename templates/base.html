@@ -1,0 +1,53 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="pl-PL">
+<head>
+    <meta charset="UTF-8">
+    <meta name="author" content="Natalia Czapska">
+    <meta name="keywords" content="team, management">
+    <meta name="description" content="Team Management Web Application">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'base.css' %}">
+    <title>{% block title %}{% endblock %}</title>
+    {% block css_files %}{% endblock %}
+</head>
+
+<body>
+    <header id="main-header">
+        <img src="{% static 'images/logoSGPR.png' %}" alt="sgpr-logo">
+        <nav class="main-nav">
+            <ul class="main-nav-list">
+                <li>
+                    <a href="#">Kalendarz</a>
+                </li>
+                <li>
+                    <a href="#">Zespół</a>
+                </li>
+                <li>
+                    <a href="#">Psy</a>
+                </li>
+                <li>
+                    <a href="#">Sprzęt</a>
+                </li>
+                <li>
+                    <a href="#">Alarm!</a>
+                </li>
+                <li>
+                    <a href="#">Zalogowany</a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <section id="main-section">
+        {% block content %}{% endblock %}
+    </section>
+
+    <footer id="main-footer">
+        <p>&copy; Copyright 2022 Natalia Czapska. Wszelkie prawa zastrzeżone.</p>
+    </footer>
+
+</body>
+</html>
