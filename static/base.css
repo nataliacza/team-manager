@@ -12,7 +12,7 @@ body {
 
 #main-header {
     height: 12vh;
-    background-color: #1e2e3c;
+    background-color: #023020;
     text-transform: uppercase;
     display: flex;
     align-items: center;
@@ -47,7 +47,7 @@ body {
     text-decoration: none;
     color: white;
     padding: 12px;
-    border: 1px solid #1e2e3c;
+    border: 1px solid #023020;
     border-radius: 10px;
 }
 
@@ -58,7 +58,7 @@ body {
 
 #main-section {
     height: 85vh;
-    background-color: #e0e0e0;
+    background-color: #F9FDF0;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -67,7 +67,7 @@ body {
 
 #main-footer {
     height: 3vh;
-    background-color: #1e2e3c;
+    background-color: #023020;
     display: flex;
     align-items: center;
     justify-content: center;
