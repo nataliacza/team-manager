@@ -18,5 +18,9 @@
 -[ ] change kpp_course, medical_exam field Y/N to date (future: add notifications for exam end date)
 -[ ] change owned_dog FK to many-to-many relation
 
-...TBC...
 
+#### Templates:
+- [ ] create dynamic page title - depending on team name
+
+
+...TBC...
