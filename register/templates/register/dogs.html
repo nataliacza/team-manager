@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block title %}
-    Zespół
+    Psy
 {% endblock %}
 
 {% block css_files %}
@@ -10,11 +10,10 @@
 
 {% block content %}
 <section>
-    {% for member in member_list %}
-        {{ member }}
+    {% for dog in dogs_list %}
+        {{ dog }}
     {% endfor %}
 </section>
-
 
 <section class="pagination">
     <span class="step-links">
