@@ -20,7 +20,7 @@
 
 
 #### Templates:
-- [ ] create dynamic page title - depending on team name
+- [x] create dynamic page title - depending on team name
 
 
 ...TBC...
