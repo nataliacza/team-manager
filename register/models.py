@@ -98,5 +98,17 @@ class EquipmentCategory(models.Model):
 class Equipment(models.Model):
     name = models.CharField(max_length=50, null=False, blank=False,
                             validators=[validate_isalphabet])
-    category = models.ForeignKey("EquipmentCategory", null=False, blank=False, on_delete=models.CASCADE, related_name="equipment")
+    category = models.ForeignKey("EquipmentCategory", null=False, blank=False, on_delete=models.CASCADE,
+                                 related_name="equipment")
+    purchase_date = models.DateField(null=True, blank=True,
+                                     validators=[validate_future_date])
+    last_service_date = models.DateField(null=True, blank=True,
+                                         validators=[validate_future_date])
+    mileage = models.PositiveIntegerField(null=True, blank=True)
+    additional_notes = models.TextField(max_length=500, null=True, blank=True)
 
+    def get_equipment_name(self):
+        return f"{self.name}"
+
+    def __str__(self):
+        return f"{self.name}"
