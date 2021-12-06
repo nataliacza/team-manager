@@ -9,7 +9,7 @@ Why not to create some tool, which could manage everything in one place?
 
 Main goal of this project is to create all-in-one tool, that would help to manage small organizations.
 
-**:grey_exclamation: Project is in progress :grey_exclamation:**
+**:exclamation::exclamation: Project is in progress :exclamation::exclamation:**
 
 _**SAR** stands for Search and Rescue._
 
