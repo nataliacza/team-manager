@@ -21,6 +21,8 @@
 
 #### Templates:
 - [x] create dynamic page title - depending on team name
+- [ ] create root css file
+- [ ] add active page styling
 
 
 ...TBC...
