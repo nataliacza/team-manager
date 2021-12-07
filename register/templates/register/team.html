@@ -2,35 +2,76 @@
 {% load static %}
 
 {% block title %}
-    {{ group_name_short }} - Zespół
+{{ group_name_short }} - Zespół
 {% endblock %}
 
 {% block css_files %}
+<link rel="stylesheet" href="{% static 'register/team.css' %}">
 {% endblock %}
 
 {% block content %}
 <section>
-    {% for member in member_list %}
-        {{ member }}
-    {% endfor %}
-</section>
+    <div>
+        <h1>ZESPÓŁ</h1>
+    </div>
 
+    <div>
+        {% if member_list|length == 0 %}
+        <p>Brak członków do wyświetlenia.</p>
+        {% else %}
+        <table>
+            <thead>
+            <th>Lp.</th>
+            <th>Zdjęcie</th>
+            <th>Imię</th>
+            <th>Nazwisko</th>
+            <th>Kontakt</th>
+            <th>Email</th>
+            <th>KPP</th>
+            <th>Badania</th>
+            <th>Kurs Przewodników</th>
+            <th>Kurs OSP</th>
+            <th>Psy</th>
+            </thead>
+            <tbody>
+            {% for member in member_list %}
+            <tr>
+                <td>{{ forloop.counter }}.</td>
+                <td><img src="{{ member.member_image.url }}" alt="member-picture"></td>
+                <td>{{ member.member_name }}</td>
+                <td>{{ member.member_surname }}</td>
+                <td>{{ member.member_mobile }}</td>
+                <td>{{ member.member_email }}</td>
+                <td>{{ member.kpp_course }}</td>
+                <td>{{ member.medical_exam }}</td>
+                <td>{{ member.dog_guide_course }}</td>
+                <td>{{ member.osp_course }}</td>
+                <td>{{ member.owned_dog.name }}</td>
+                <td>Więcej...</td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
 
-<section class="pagination">
-    <span class="step-links">
-        {% if page_obj.has_previous %}
-            <a href="?page=1">&laquo; first</a>
-            <a href="?page={{ page_obj.previous_page_number }}">previous</a>
         {% endif %}
+    </div>
 
-        <span class="current">
-            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+    <div class="pagination">
+        <span class="step-links">
+            {% if page_obj.has_previous %}
+                <a href="?page=1">&laquo; pierwsza</a>
+                <a href="?page={{ page_obj.previous_page_number }}">poprzednia</a>
+            {% endif %}
+
+            <span class="current">
+                Strona {{ page_obj.number }} z {{ page_obj.paginator.num_pages }}.
+            </span>
+
+            {% if page_obj.has_next %}
+                <a href="?page={{ page_obj.next_page_number }}">następna</a>
+                <a href="?page={{ page_obj.paginator.num_pages }}">ostatnia &raquo;</a>
+            {% endif %}
         </span>
-
-        {% if page_obj.has_next %}
-            <a href="?page={{ page_obj.next_page_number }}">next</a>
-            <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
-        {% endif %}
-    </span>
+    </div>
 </section>
 {% endblock %}
