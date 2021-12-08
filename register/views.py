@@ -23,7 +23,7 @@ class DogListView(ListView):
     paginate_by = 5
     model = Dog
     template_name = "register/dogs.html"
-    context_object_name = "dogs_list"
+    context_object_name = "dog_list"
     extra_context = {"group_name_short": group_details.get_group_name_short()}
 
 
