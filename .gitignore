@@ -133,3 +133,5 @@ dmypy.json
 
 # Ignore migrations to minimize conflicts
 /register/migrations/
+/uploads/dogs/
+/uploads/members/

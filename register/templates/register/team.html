@@ -10,9 +10,9 @@
 {% endblock %}
 
 {% block content %}
-<section>
-    <div>
-        <h1>ZESPÓŁ</h1>
+<section id="main-team-section">
+    <div class="member-page-title">
+        <p>ZESPÓŁ</p>
     </div>
 
     <div>
@@ -21,54 +21,63 @@
         {% else %}
         <table>
             <thead>
-            <th>Lp.</th>
-            <th>Zdjęcie</th>
-            <th>Imię</th>
-            <th>Nazwisko</th>
-            <th>Kontakt</th>
-            <th>Email</th>
-            <th>KPP</th>
-            <th>Badania</th>
-            <th>Kurs Przewodników</th>
-            <th>Kurs OSP</th>
-            <th>Psy</th>
+            <tr>
+                <th>Lp.</th>
+                <th>Zdjęcie</th>
+                <th>Imię</th>
+                <th>Nazwisko</th>
+                <th>Kontakt</th>
+                <th>Email</th>
+                <th>KPP</th>
+                <th>Badania</th>
+                <th>Kurs Przewodników</th>
+                <th>Kurs OSP</th>
+                <th>Psy</th>
+            </tr>
             </thead>
             <tbody>
             {% for member in member_list %}
             <tr>
-                <td>{{ forloop.counter }}.</td>
-                <td><img src="{{ member.member_image.url }}" alt="member-picture"></td>
+                <td class="member-lp-cell">{{ forloop.counter0|add:page_obj.start_index }}.</td>
+                <td class="member-image-cell">
+                    {% if not member.member_image %}
+                        <img src="{% static 'images/default-member.png' %}" alt="member-picture">
+                    {% else %}
+                        <img src="{{ member.member_image.url }}" alt="member-picture">
+                    {% endif %}
+                </td>
                 <td>{{ member.member_name }}</td>
                 <td>{{ member.member_surname }}</td>
                 <td>{{ member.member_mobile }}</td>
-                <td>{{ member.member_email }}</td>
+                <td class="member-email-cell">{{ member.member_email }}</td>
                 <td>{{ member.kpp_course }}</td>
                 <td>{{ member.medical_exam }}</td>
                 <td>{{ member.dog_guide_course }}</td>
                 <td>{{ member.osp_course }}</td>
-                <td>{{ member.owned_dog.name }}</td>
+                <td>{% for dog in member.owned_dog.all %}
+                        <p>{{ dog.dog_name }}</p>
+                    {% endfor %}</td>
                 <td>Więcej...</td>
             </tr>
             {% endfor %}
             </tbody>
         </table>
-
         {% endif %}
     </div>
 
     <div class="pagination">
-        <span class="step-links">
+        <span>
             {% if page_obj.has_previous %}
                 <a href="?page=1">&laquo; pierwsza</a>
-                <a href="?page={{ page_obj.previous_page_number }}">poprzednia</a>
+                <a href="?page={{ page_obj.previous_page_number }}">poprzednia</a> |
             {% endif %}
 
-            <span class="current">
-                Strona {{ page_obj.number }} z {{ page_obj.paginator.num_pages }}.
+            <span>
+                Strona {{ page_obj.number }} z {{ page_obj.paginator.num_pages }}
             </span>
 
             {% if page_obj.has_next %}
-                <a href="?page={{ page_obj.next_page_number }}">następna</a>
+                | <a href="?page={{ page_obj.next_page_number }}"> następna</a>
                 <a href="?page={{ page_obj.paginator.num_pages }}">ostatnia &raquo;</a>
             {% endif %}
         </span>

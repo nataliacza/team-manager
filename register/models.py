@@ -36,7 +36,7 @@ YES_NO_CHOICES = (
 
 class Member(models.Model):
     member_image = models.ImageField(upload_to="members/", null=True, blank=True, max_length=100, height_field=None,
-                                     width_field=None, default='/static/images/default-member.jpg',
+                                     width_field=None,
                                      validators=[validate_image_file_extension, validate_file_size_3MB])
     member_name = models.CharField(max_length=20, null=False, blank=False,
                                    validators=[MinLengthValidator(2), validate_isalphabet])
@@ -60,7 +60,7 @@ class Member(models.Model):
 
 class Dog(models.Model):
     dog_image = models.ImageField(upload_to="dogs/", null=True, blank=True, max_length=100, height_field=None,
-                                  width_field=None, default='/static/images/default-dog.jpg',
+                                  width_field=None,
                                   validators=[validate_image_file_extension, validate_file_size_3MB])
     dog_name = models.CharField(max_length=50, null=False, blank=False,
                                 validators=[MinLengthValidator(3), validate_isalphabet])
