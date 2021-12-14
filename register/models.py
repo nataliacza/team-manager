@@ -1,8 +1,12 @@
 from sys import getsizeof
 from datetime import date
-from django.core.exceptions import ValidationError
-from django.core.validators import MinLengthValidator, validate_image_file_extension
 from django.db import models
+from django.core.exceptions import ValidationError
+from django.core.validators import (MinLengthValidator,
+                                    validate_image_file_extension,
+                                    EmailValidator,
+                                    MinValueValidator,
+                                    MaxValueValidator)
 
 
 def validate_isalphabet(name):
@@ -44,12 +48,12 @@ class Member(models.Model):
                                       validators=[MinLengthValidator(2), validate_isalphabet])
     member_mobile = models.IntegerField(null=True, blank=True)
     member_email = models.EmailField(null=True, blank=True,
-                                     validators=[MinLengthValidator(6)])
+                                     validators=[MinLengthValidator(6), EmailValidator])
     kpp_course = models.CharField(max_length=3, choices=YES_NO_CHOICES, null=True, blank=True)
     medical_exam = models.CharField(max_length=3, choices=YES_NO_CHOICES, null=True, blank=True)
     dog_guide_course = models.CharField(max_length=3, choices=YES_NO_CHOICES, null=True, blank=True)
     osp_course = models.CharField(max_length=3, choices=YES_NO_CHOICES, null=True, blank=True)
-    owned_dog = models.ManyToManyField("Dog", null=True, blank=True, related_name="member")
+    owned_dog = models.ManyToManyField("Dog", related_name="member")
 
     def get_full_name(self):
         return f"{self.member_name} {self.member_surname}"
@@ -85,7 +89,7 @@ class Dog(models.Model):
 
 
 class EquipmentCategory(models.Model):
-    category = models.CharField(max_length=50, null=False, blank=False,
+    category = models.CharField(max_length=50, null=False, blank=False, unique=True,
                                 validators=[validate_isalphabet])
 
     def get_category_name(self):
@@ -96,10 +100,11 @@ class EquipmentCategory(models.Model):
 
 
 class Equipment(models.Model):
-    name = models.CharField(max_length=50, null=False, blank=False,
-                            validators=[validate_isalphabet])
+    name = models.CharField(max_length=50, null=False, blank=False)
     category = models.ForeignKey("EquipmentCategory", null=False, blank=False, on_delete=models.CASCADE,
                                  related_name="equipment")
+    amount = models.IntegerField(null=True, blank=True,
+                                 validators=[MinValueValidator(1), MaxValueValidator(999)])
     purchase_date = models.DateField(null=True, blank=True,
                                      validators=[validate_future_date])
     last_service_date = models.DateField(null=True, blank=True,
