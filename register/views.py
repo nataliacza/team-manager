@@ -1,6 +1,10 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.urls import reverse_lazy
+from django.views.generic import ListView, TemplateView, CreateView
+
 from x_personalized_settings import group_details
-from django.views.generic import ListView, TemplateView
 from register.models import Dog, Equipment, Member
+from register.forms import MemberForm
 
 
 class HomeView(TemplateView):
@@ -33,3 +37,10 @@ class EquipmentListView(ListView):
     template_name = "register/equipment.html"
     context_object_name = "equipment_list"
     extra_context = {"group_name_short": group_details.get_group_name_short()}
+
+
+class MemberCreateView(LoginRequiredMixin, CreateView):
+    model = Member
+    form_class = MemberForm
+    template_name = "register/member-form.html"
+    success_url = reverse_lazy("register:zespol")
