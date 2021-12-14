@@ -1,0 +1,58 @@
+* {
+    margin: 0;
+}
+
+#main-equipment-section {
+    width: 90vw;
+    align-self: start;
+    margin-top: 50px;
+}
+
+table {
+  align-self: flex-start;
+  text-align: center;
+}
+
+table,
+td {
+  border: 1px solid #333;
+}
+
+thead {
+  background-color: #333;
+}
+
+th {
+  color: #eee;
+  padding: 3px 10px;
+  max-width: 150px;
+}
+
+td {
+  width: 150px;
+  max-width: 150px;
+  overflow-wrap: break-word;
+}
+
+.equipment-page-title {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.equipment-page-title p {
+    font-size: 40px;
+    font-weight: bold;
+}
+
+.equipment-lp-cell {
+    width: 50px;
+    text-align: right;
+    padding-right: 10px;
+    font-weight: bold;
+    background-color: #DCDCDC;
+}
+
+.pagination {
+    margin-top: 15px;
+    text-align: center;
+}

@@ -2,40 +2,70 @@
 {% load static %}
 
 {% block title %}
-    {{ group_name_short }} - Zespół
+{{ group_name_short }} - Sprzęt
 {% endblock %}
 
 {% block css_files %}
+<link rel="stylesheet" href="{% static 'register/equipment.css' %}">
 {% endblock %}
 
 {% block content %}
-<div>
-    <div>
-        <h1>SPRZĘT</h1>
+<section id="main-equipment-section">
+    <div class="equipment-page-title">
+        <p>SPRZĘT</p>
     </div>
 
     <div>
-        {% for equipment in equipment_list %}
-            <p>{{ forloop.counter }}. {{ equipment }}</p>
-        {% endfor %}
+        {% if equipment_list|length == 0 %}
+        <p>Brak sprzętu do wyświetlenia.</p>
+        {% else %}
+        <table>
+            <thead>
+            <tr>
+                <th>Lp.</th>
+                <th>Nazwa</th>
+                <th>Kategoria</th>
+                <th>Ilość sztuk</th>
+                <th>Data zakupu</th>
+                <th>Data ostatniego serwisu</th>
+                <th>Przebieg (km)</th>
+                <th>Uwagi</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for equipment in equipment_list %}
+            <tr>
+                <td class="equipment-lp-cell">{{ forloop.counter0|add:page_obj.start_index }}.</td>
+                <td>{{ equipment.name }}</td>
+                <td>{{ equipment.category }}</td>
+                <td>{{ equipment.amount|default_if_none:"-" }}</td>
+                <td>{{ equipment.purchase_date|date:"SHORT_DATE_FORMAT" }}</td>
+                <td>{{ equipment.last_service_date|date:"SHORT_DATE_FORMAT" }}</td>
+                <td>{{ equipment.mileage|default_if_none:"-" }}</td>
+                <td>{{ equipment.additional_notes|default_if_none:"-" }}</td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        {% endif %}
     </div>
 
     <div class="pagination">
-        <span class="step-links">
+        <span>
             {% if page_obj.has_previous %}
-                <a href="?page=1">&laquo; first</a>
-                <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+                <a href="?page=1">&laquo; pierwsza</a>
+                <a href="?page={{ page_obj.previous_page_number }}">poprzednia</a> |
             {% endif %}
 
-            <span class="current">
-                Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+            <span>
+                Strona {{ page_obj.number }} z {{ page_obj.paginator.num_pages }}
             </span>
 
             {% if page_obj.has_next %}
-                <a href="?page={{ page_obj.next_page_number }}">next</a>
-                <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+                | <a href="?page={{ page_obj.next_page_number }}"> następna</a>
+                <a href="?page={{ page_obj.paginator.num_pages }}">ostatnia &raquo;</a>
             {% endif %}
         </span>
     </div>
-</div>
+</section>
 {% endblock %}
