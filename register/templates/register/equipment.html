@@ -36,13 +36,14 @@
             {% for equipment in equipment_list %}
             <tr>
                 <td class="equipment-lp-cell">{{ forloop.counter0|add:page_obj.start_index }}.</td>
-                <td>{{ equipment.name }}</td>
-                <td>{{ equipment.category }}</td>
-                <td>{{ equipment.amount|default_if_none:"-" }}</td>
-                <td>{{ equipment.purchase_date|date:"SHORT_DATE_FORMAT" }}</td>
-                <td>{{ equipment.last_service_date|date:"SHORT_DATE_FORMAT" }}</td>
-                <td>{{ equipment.mileage|default_if_none:"-" }}</td>
-                <td>{{ equipment.additional_notes|default_if_none:"-" }}</td>
+                <td class="equipment-name-cell">{{ equipment.name }}</td>
+                <td class="equipment-category-cell">{{ equipment.category }}</td>
+                <td>{{ equipment.amount|default:"-" }}</td>
+                <td>{{ equipment.purchase_date|date:"SHORT_DATE_FORMAT"|default:"-" }}</td>
+                <td>{{ equipment.last_service_date|date:"SHORT_DATE_FORMAT"|default:"-" }}</td>
+                <td>{{ equipment.mileage|default:"-" }}</td>
+                <td class="equipment-comment-cell">{{ equipment.additional_notes|slice:"200"|default:"-" }}</td>
+                <td>Więcej/Edytuj &raquo;</td>
             </tr>
             {% endfor %}
             </tbody>

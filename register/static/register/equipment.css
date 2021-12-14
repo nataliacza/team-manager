@@ -52,6 +52,19 @@ td {
     background-color: #DCDCDC;
 }
 
+.equipment-name-cell,
+.equipment-category-cell {
+    width: 250px;
+    max-width: 250px;
+}
+
+.equipment-comment-cell {
+    width: 500px;
+    max-width: 400px;
+    padding: 12px;
+    overflow: hidden;
+}
+
 .pagination {
     margin-top: 15px;
     text-align: center;

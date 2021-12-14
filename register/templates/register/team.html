@@ -48,14 +48,14 @@
                 </td>
                 <td>{{ member.member_name }}</td>
                 <td>{{ member.member_surname }}</td>
-                <td>{{ member.member_mobile|default_if_none:"-" }}</td>
-                <td class="member-email-cell">{{ member.member_email|default_if_none:"-" }}</td>
-                <td>{{ member.kpp_course|default_if_none:"-" }}</td>
-                <td>{{ member.medical_exam|default_if_none:"-" }}</td>
-                <td>{{ member.dog_guide_course|default_if_none:"-" }}</td>
-                <td>{{ member.osp_course|default_if_none:"-" }}</td>
+                <td>{{ member.member_mobile|default:"-" }}</td>
+                <td class="member-email-cell">{{ member.member_email|default:"-" }}</td>
+                <td>{{ member.kpp_course|default:"-" }}</td>
+                <td>{{ member.medical_exam|default:"-" }}</td>
+                <td>{{ member.dog_guide_course|default:"-" }}</td>
+                <td>{{ member.osp_course|default:"-" }}</td>
                 <td>{% for dog in member.owned_dog.all %}
-                        <p>{{ dog.dog_name|default_if_none:"-" }}</p>
+                        <p>{{ dog.dog_name|default:"-" }}</p>
                     {% endfor %}</td>
                 <td>Więcej/Edytuj &raquo;</td>
             </tr>

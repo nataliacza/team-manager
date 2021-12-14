@@ -48,14 +48,14 @@
                     {% endif %}
                 </td>
                 <td>{{ dog.dog_name }}</td>
-                <td>{{ dog.breeder|default_if_none:"-" }}</td>
+                <td>{{ dog.breeder|default:"-" }}</td>
                 <td>{{ dog.gender }}</td>
                 <td>{{ dog.day_of_birth|date:"SHORT_DATE_FORMAT"}}</td>
-                <td>{{ dog.chip_number|default_if_none:"-" }}</td>
-                <td>{{ dog.field_exam_0|default_if_none:"-" }}</td>
-                <td>{{ dog.field_exam_1|default_if_none:"-" }}</td>
-                <td>{{ dog.ruins_exam_0|default_if_none:"-" }}</td>
-                <td>{{ dog.ruins_exam_1|default_if_none:"-" }}</td>
+                <td>{{ dog.chip_number|default:"-" }}</td>
+                <td>{{ dog.field_exam_0|default:"-" }}</td>
+                <td>{{ dog.field_exam_1|default:"-" }}</td>
+                <td>{{ dog.ruins_exam_0|default:"-" }}</td>
+                <td>{{ dog.ruins_exam_1|default:"-" }}</td>
                 <td>{{ dog.owner }}</td>
                 <td>Więcej/Edytuj &raquo;</td>
             </tr>
