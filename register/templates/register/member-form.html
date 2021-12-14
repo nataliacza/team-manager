@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+{{ group_name_short }} - Dodaj Członka
+{% endblock %}
+
+{% block css_files %}
+{% endblock %}
+
+{% block content %}
+<section>
+    <div>
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+                {{ form }}
+            <button type="submit">Dodaj nowego członka</button>
+    </div>
+</section>
+{% endblock %}
