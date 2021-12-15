@@ -53,7 +53,7 @@ class Member(models.Model):
     medical_exam = models.CharField(max_length=3, choices=YES_NO_CHOICES, null=True, blank=True)
     dog_guide_course = models.CharField(max_length=3, choices=YES_NO_CHOICES, null=True, blank=True)
     osp_course = models.CharField(max_length=3, choices=YES_NO_CHOICES, null=True, blank=True)
-    owned_dog = models.ManyToManyField("Dog", related_name="member")
+    owned_dog = models.ManyToManyField("Dog", blank=True, default=None, related_name="member")
 
     def get_full_name(self):
         return f"{self.member_name} {self.member_surname}"
