@@ -39,21 +39,24 @@ YES_NO_CHOICES = (
 
 
 class Member(models.Model):
-    member_image = models.ImageField(upload_to="members/", null=True, blank=True, max_length=100, height_field=None,
-                                     width_field=None,
+    member_image = models.ImageField(upload_to="members/", null=True, blank=True, max_length=100,
+                                     height_field=None, width_field=None, verbose_name="Zdjęcie",
                                      validators=[validate_image_file_extension, validate_file_size_3MB])
-    member_name = models.CharField(max_length=20, null=False, blank=False,
+    member_name = models.CharField(max_length=20, null=False, blank=False, verbose_name="Imię",
                                    validators=[MinLengthValidator(2), validate_isalphabet])
-    member_surname = models.CharField(max_length=20, null=False, blank=False,
+    member_surname = models.CharField(max_length=20, null=False, blank=False, verbose_name="Nazwisko",
                                       validators=[MinLengthValidator(2), validate_isalphabet])
-    member_mobile = models.IntegerField(null=True, blank=True)
-    member_email = models.EmailField(null=True, blank=True,
+    member_mobile = models.IntegerField(null=True, blank=True, verbose_name="Telefon")
+    member_email = models.EmailField(null=True, blank=True, verbose_name="Email",
                                      validators=[MinLengthValidator(6), EmailValidator])
-    kpp_course = models.CharField(max_length=3, choices=YES_NO_CHOICES, null=True, blank=True)
-    medical_exam = models.CharField(max_length=3, choices=YES_NO_CHOICES, null=True, blank=True)
-    dog_guide_course = models.CharField(max_length=3, choices=YES_NO_CHOICES, null=True, blank=True)
-    osp_course = models.CharField(max_length=3, choices=YES_NO_CHOICES, null=True, blank=True)
-    owned_dog = models.ManyToManyField("Dog", blank=True, default=None, related_name="member")
+    kpp_course = models.CharField(max_length=3, choices=YES_NO_CHOICES, null=True, blank=True, verbose_name="KPP")
+    medical_exam = models.CharField(max_length=3, choices=YES_NO_CHOICES, null=True, blank=True,
+                                    verbose_name="Badania Lekarskie")
+    dog_guide_course = models.CharField(max_length=3, choices=YES_NO_CHOICES, null=True, blank=True,
+                                        verbose_name="Kurs Przewodników")
+    osp_course = models.CharField(max_length=3, choices=YES_NO_CHOICES, null=True, blank=True,
+                                  verbose_name="Kurs OSP")
+    owned_dog = models.ManyToManyField("Dog", blank=True, default=None, related_name="member", verbose_name="psy")
 
     def get_full_name(self):
         return f"{self.member_name} {self.member_surname}"
@@ -63,23 +66,28 @@ class Member(models.Model):
 
 
 class Dog(models.Model):
-    dog_image = models.ImageField(upload_to="dogs/", null=True, blank=True, max_length=100, height_field=None,
-                                  width_field=None,
+    dog_image = models.ImageField(upload_to="dogs/", null=True, blank=True, max_length=100,
+                                  height_field=None, width_field=None, verbose_name="Zdjęcie",
                                   validators=[validate_image_file_extension, validate_file_size_3MB])
-    dog_name = models.CharField(max_length=50, null=False, blank=False,
+    dog_name = models.CharField(max_length=50, null=False, blank=False, verbose_name="Imię",
                                 validators=[MinLengthValidator(3), validate_isalphabet])
-    breeder = models.CharField(max_length=50, null=True, blank=True,
+    breeder = models.CharField(max_length=50, null=True, blank=True, verbose_name="Hodowla",
                                validators=[MinLengthValidator(3), validate_isalphabet])
-    gender = models.CharField(max_length=4, choices=GENDER_CHOICES, null=False, blank=False)
-    day_of_birth = models.DateField(null=False, blank=False,
+    gender = models.CharField(max_length=4, choices=GENDER_CHOICES, null=False, blank=False, verbose_name="Płeć")
+    day_of_birth = models.DateField(null=False, blank=False, verbose_name="Data urodzenia",
                                     validators=[validate_future_date])
-    chip_number = models.CharField(max_length=20, null=True, blank=True,
+    chip_number = models.CharField(max_length=20, null=True, blank=True, verbose_name="Numer Chipa",
                                    validators=[MinLengthValidator(4)])
-    field_exam_0 = models.CharField(max_length=3, choices=YES_NO_CHOICES, null=True, blank=True)
-    field_exam_1 = models.CharField(max_length=3, choices=YES_NO_CHOICES, null=True, blank=True)
-    ruins_exam_0 = models.CharField(max_length=3, choices=YES_NO_CHOICES, null=True, blank=True)
-    ruins_exam_1 = models.CharField(max_length=3, choices=YES_NO_CHOICES, null=True, blank=True)
-    owner = models.ForeignKey("Member", null=False, blank=False, on_delete=models.CASCADE, related_name="dog")
+    field_exam_0 = models.CharField(max_length=3, choices=YES_NO_CHOICES, verbose_name="Egzamin teren 0",
+                                    null=True, blank=True)
+    field_exam_1 = models.CharField(max_length=3, choices=YES_NO_CHOICES, verbose_name="Egzamin teren 1",
+                                    null=True, blank=True)
+    ruins_exam_0 = models.CharField(max_length=3, choices=YES_NO_CHOICES, verbose_name="Egzamin gruzy 0",
+                                    null=True, blank=True)
+    ruins_exam_1 = models.CharField(max_length=3, choices=YES_NO_CHOICES, verbose_name="Egzamin gruzy 1",
+                                    null=True, blank=True)
+    owner = models.ForeignKey("Member", null=False, blank=False, verbose_name="Właściciel",
+                              on_delete=models.CASCADE, related_name="dog")
 
     def get_dog_name(self):
         return f"{self.dog_name}"
@@ -89,7 +97,7 @@ class Dog(models.Model):
 
 
 class EquipmentCategory(models.Model):
-    category = models.CharField(max_length=50, null=False, blank=False, unique=True,
+    category = models.CharField(max_length=50, null=False, blank=False, unique=True, verbose_name="Kategoria",
                                 validators=[validate_isalphabet])
 
     def get_category_name(self):
@@ -100,17 +108,17 @@ class EquipmentCategory(models.Model):
 
 
 class Equipment(models.Model):
-    name = models.CharField(max_length=50, null=False, blank=False)
+    name = models.CharField(max_length=50, null=False, blank=False, verbose_name="Nazwa")
     category = models.ForeignKey("EquipmentCategory", null=False, blank=False, on_delete=models.CASCADE,
-                                 related_name="equipment")
-    amount = models.IntegerField(null=True, blank=True,
+                                 related_name="equipment", verbose_name="Kategoria")
+    amount = models.IntegerField(null=True, blank=True, verbose_name="Ilość",
                                  validators=[MinValueValidator(1), MaxValueValidator(999)])
-    purchase_date = models.DateField(null=True, blank=True,
+    purchase_date = models.DateField(null=True, blank=True, verbose_name="Data Zakupu",
                                      validators=[validate_future_date])
-    last_service_date = models.DateField(null=True, blank=True,
+    last_service_date = models.DateField(null=True, blank=True, verbose_name="Data serwisu",
                                          validators=[validate_future_date])
-    mileage = models.PositiveIntegerField(null=True, blank=True)
-    additional_notes = models.TextField(max_length=500, null=True, blank=True)
+    mileage = models.PositiveIntegerField(null=True, blank=True, verbose_name="Przebieg (km)")
+    additional_notes = models.TextField(max_length=500, null=True, blank=True, verbose_name="Uwagi")
 
     def get_equipment_name(self):
         return f"{self.name}"

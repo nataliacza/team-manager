@@ -6,52 +6,64 @@
 {% endblock %}
 
 {% block css_files %}
+<link rel="stylesheet" href="{% static 'register/member-form.css' %}">
 {% endblock %}
 
 {% block content %}
 <section id="main-member-form-section">
-    <form method="POST" enctype="multipart/form-data">
-        {% csrf_token %}
-        <table>
-            <thead>
-                <tr></tr>
-            </thead>
-            <tr>
-                <td>{{ form.member_image.label }}: {{ form.member_image }}</td>
-            </tr>
-            <tr>
-                <td>{{ form.member_name.label }}: {{ form.member_name }}</td>
-            </tr>
-            <tr>
-                <td>{{ form.member_surname.label }}: {{ form.member_surname }}</td>
-            </tr>
-            <tr>
-                <td>{{ form.member_mobile.label }}: {{ form.member_mobile }}</td>
-            </tr>
-            <tr>
-                <td>{{ form.member_email.label }}: {{ form.member_email }}</td>
-            </tr>
-            <tr>
-                <td>{{ form.kpp_course.label }}: {{ form.kpp_course }}</td>
-            </tr>
-            <tr>
-                <td>{{ form.medical_exam.label }}: {{ form.medical_exam }}</td>
-            </tr>
-            <tr>
-                <td>{{ form.dog_guide_course.label }}: {{ form.dog_guide_course }}</td>
-            </tr>
-            <tr>
-                <td>{{ form.osp_course.label }}: {{ form.osp_course }}</td>
-            </tr>
-            <tr>
-                <td>{{ form.owned_dog.label }}: {{ form.owned_dog }}</td>
-            </tr>
-            <tr>
-                <td>Dodaj nowego psa &raquo;</td>
-            </tr>
-            <tr>
-                <td><button type="submit">Zapisz</button></td>
-            </tr>
-        </table>
+    <div class="member-form-header">
+        <p>Dodaj członka</p>
+    </div>
+    <div>
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="member-form-fields">
+                <div>
+                    <p>{{ form.member_image.label }}:</p>
+                    <p>{{ form.member_image }}</p>
+                </div>
+                <div>
+                    <p>{{ form.member_name.label }}:</p>
+                    <p>{{ form.member_name }}</p>
+                </div>
+                <div>
+                    <p>{{ form.member_surname.label }}:</p>
+                    <p>{{ form.member_surname }}</p>
+                </div>
+                <div>
+                    <p>{{ form.member_mobile.label }}:</p>
+                    <p>{{ form.member_mobile }}</p>
+                </div>
+                <div>
+                    <p>{{ form.member_email.label }}:</p>
+                    <p>{{ form.member_email }}</p>
+                </div>
+                <div>
+                    <p>{{ form.kpp_course.label }}:</p>
+                    <p>{{ form.kpp_course }}</p>
+                </div>
+                <div>
+                    <p>{{ form.medical_exam.label }}:</p>
+                    <p>{{ form.medical_exam }}</p>
+                </div>
+                <div>
+                    <p>{{ form.dog_guide_course.label }}:</p>
+                    <p>{{ form.dog_guide_course }}</p>
+                </div>
+                <div>
+                    <p>{{ form.osp_course.label }}:</p>
+                    <p>{{ form.osp_course }}</p>
+                </div>
+                <div>
+                    <p>{{ form.owned_dog.label }}:</p>
+                    <p>{{ form.owned_dog }}</p>
+                </div>
+                <div>
+                    <p>Dodaj nowego psa &raquo;</p>
+                </div>
+                <button type="submit">Zapisz</button>
+            </div>
+        </form>
+    </div>
 </section>
 {% endblock %}
