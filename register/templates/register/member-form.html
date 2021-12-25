@@ -18,50 +18,39 @@
         <form method="POST" enctype="multipart/form-data">
             {% csrf_token %}
             <div class="member-form-fields">
-                <div>
-                    <p>{{ form.member_image.label }}:</p>
+                <div class="member-form-image-section">
+                    <img src="{% static 'images/default-member.png' %}" alt="member-picture">
                     <p>{{ form.member_image }}</p>
                 </div>
-                <div>
+                <div class="member-form-data-section">
                     <p>{{ form.member_name.label }}:</p>
                     <p>{{ form.member_name }}</p>
-                </div>
-                <div>
                     <p>{{ form.member_surname.label }}:</p>
                     <p>{{ form.member_surname }}</p>
-                </div>
-                <div>
                     <p>{{ form.member_mobile.label }}:</p>
                     <p>{{ form.member_mobile }}</p>
-                </div>
-                <div>
                     <p>{{ form.member_email.label }}:</p>
                     <p>{{ form.member_email }}</p>
-                </div>
-                <div>
                     <p>{{ form.kpp_course.label }}:</p>
                     <p>{{ form.kpp_course }}</p>
-                </div>
-                <div>
                     <p>{{ form.medical_exam.label }}:</p>
                     <p>{{ form.medical_exam }}</p>
-                </div>
-                <div>
                     <p>{{ form.dog_guide_course.label }}:</p>
                     <p>{{ form.dog_guide_course }}</p>
-                </div>
-                <div>
                     <p>{{ form.osp_course.label }}:</p>
                     <p>{{ form.osp_course }}</p>
-                </div>
-                <div>
                     <p>{{ form.owned_dog.label }}:</p>
                     <p>{{ form.owned_dog }}</p>
+                    <p class="member-multiple-dog-selection">Przytrzymaj Ctrl, aby wybrać kilka rekordów.</p>
+                    <div>
+                    </div>
                 </div>
-                <div>
-                    <p>Dodaj nowego psa &raquo;</p>
-                </div>
-                <button type="submit">Zapisz</button>
+            </div>
+            <div class="member-form-buttons">
+                <button type="button">
+                    <a href="{% url 'register:zespol' %}" style="text-decoration:none; color:black">Porwót</a>
+                </button>
+                <button type="submit" onclick="alert('Rekord zapisany')">Zapisz</button>
             </div>
         </form>
     </div>
