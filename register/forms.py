@@ -1,5 +1,5 @@
 from django import forms
-from django.forms import TextInput, FileInput, Select, EmailInput, NumberInput, CheckboxSelectMultiple
+from django.forms import TextInput, FileInput, Select, EmailInput, SelectMultiple
 
 from register.models import Member, Dog, Equipment, EquipmentCategory
 
@@ -19,7 +19,7 @@ class MemberForm(forms.ModelForm):
             "medical_exam": Select(),
             "dog_guide_course": Select(),
             "osp_course": Select(),
-            "owned_dog": CheckboxSelectMultiple(),
+            "owned_dog": SelectMultiple(),
         }
 
 

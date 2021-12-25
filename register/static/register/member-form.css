@@ -1,0 +1,78 @@
+* {
+    margin: 0;
+}
+
+#main-member-form-section {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    align-self: start;
+    margin-top: 50px;
+}
+
+.member-form-header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.member-form-header p {
+    font-size: 30px;
+    font-weight: bold;
+}
+
+.member-form-fields {
+    width: 50vw;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: flex-start;
+    margin-bottom: 20px;
+}
+
+p {
+    display: inline;
+}
+
+.member-form-image-section {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-right: 10px;
+    margin-bottom: 10px;
+}
+
+img {
+    width: 350px;
+    height: 350px;
+    margin-bottom: 20px;
+    border-radius: 50%
+}
+
+
+.member-form-data-section {
+    display: flex;
+    flex-direction: column;
+}
+
+.member-form-data-section p {
+    display: flex;
+    flex-direction: column;
+    width: 40vh;
+    padding: 3px;
+}
+
+.member-multiple-dog-selection {
+    font-size: 12px;
+    font-style: italic;
+}
+
+.member-add-new-dog {
+    margin-top: 10px;
+}
+
+.member-form-buttons {
+    display: flex;
+    justify-content: space-around;
+}
