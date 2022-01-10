@@ -27,6 +27,14 @@ def validate_future_date(date_given):
         raise ValidationError("Data nie może być z przyszłości.")
 
 
+def current_year():
+    return date.today().year
+
+
+def validate_min_value_year_200(value):
+    return MinValueValidator(current_year() - 200)(value)
+
+
 GENDER_CHOICES = (
     ("Suka", "Suka"),
     ("Pies", "Pies"),
@@ -35,6 +43,12 @@ GENDER_CHOICES = (
 YES_NO_CHOICES = (
     ("TAK", "Tak"),
     ("NIE", "Nie"),
+)
+
+FUEL_CHOICES = (
+    ("Benzyna", "Benzyna"),
+    ("Diesel", "Diesel"),
+    ("Inne", "Inne"),
 )
 
 
@@ -89,9 +103,6 @@ class Dog(models.Model):
     owner = models.ForeignKey("Member", null=False, blank=False, verbose_name="Właściciel",
                               on_delete=models.CASCADE, related_name="dog")
 
-    def get_dog_name(self):
-        return f"{self.dog_name}"
-
     def __str__(self):
         return f"{self.dog_name}"
 
@@ -99,9 +110,6 @@ class Dog(models.Model):
 class EquipmentCategory(models.Model):
     category = models.CharField(max_length=50, null=False, blank=False, unique=True, verbose_name="Kategoria",
                                 validators=[validate_isalphabet])
-
-    def get_category_name(self):
-        return f"{self.category}"
 
     def __str__(self):
         return f"{self.category}"
@@ -111,17 +119,28 @@ class Equipment(models.Model):
     name = models.CharField(max_length=50, null=False, blank=False, verbose_name="Nazwa")
     category = models.ForeignKey("EquipmentCategory", null=False, blank=False, on_delete=models.CASCADE,
                                  related_name="equipment", verbose_name="Kategoria")
-    amount = models.IntegerField(null=True, blank=True, verbose_name="Ilość",
-                                 validators=[MinValueValidator(1), MaxValueValidator(999)])
-    purchase_date = models.DateField(null=True, blank=True, verbose_name="Data Zakupu",
-                                     validators=[validate_future_date])
-    last_service_date = models.DateField(null=True, blank=True, verbose_name="Data serwisu",
-                                         validators=[validate_future_date])
-    mileage = models.PositiveIntegerField(null=True, blank=True, verbose_name="Przebieg (km)")
+    amount = models.PositiveIntegerField(null=True, blank=True, verbose_name="Ilość",
+                                         validators=[MaxValueValidator(999)])
     additional_notes = models.TextField(max_length=500, null=True, blank=True, verbose_name="Uwagi")
-
-    def get_equipment_name(self):
-        return f"{self.name}"
 
     def __str__(self):
         return f"{self.name}"
+
+
+class Fleet(models.Model):
+    brand_name = models.CharField(max_length=50, null=False, blank=False, verbose_name="Marka")
+    brand_model = models.CharField(max_length=50, null=False, blank=False, verbose_name="Model")
+    year = models.PositiveIntegerField(null=False, blank=False, verbose_name="Rok",
+                                       validators=[validate_min_value_year_200,
+                                                   MaxValueValidator(current_year)])
+    fuel = models.CharField(max_length=10, null=True, blank=True, choices=FUEL_CHOICES, verbose_name="Paliwo")
+    last_service_date = models.DateField(null=True, blank=True, verbose_name="Data serwisu",
+                                         validators=[validate_future_date])
+    mileage = models.PositiveIntegerField(null=True, blank=True, verbose_name="Przebieg (km)",
+                                          validators=[MaxValueValidator(999999)])
+    max_passengers = models.PositiveIntegerField(null=True, blank=True, verbose_name="Ilość osób")
+    max_dogs = models.PositiveIntegerField(null=True, blank=True, verbose_name="Ilość psów")
+    additional_notes = models.TextField(max_length=500, null=True, blank=True, verbose_name="Uwagi")
+
+    def __str__(self):
+        return f"{self.brand_name} {self.brand_model} ({self.year})"

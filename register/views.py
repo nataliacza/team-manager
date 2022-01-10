@@ -3,7 +3,7 @@ from django.urls import reverse_lazy
 from django.views.generic import ListView, TemplateView, CreateView
 
 from x_personalized_settings import group_details
-from register.models import Dog, Equipment, Member
+from register.models import Dog, Fleet, Equipment, Member
 from register.forms import MemberForm
 
 
@@ -28,6 +28,14 @@ class DogListView(ListView):
     model = Dog
     template_name = "register/dogs.html"
     context_object_name = "dog_list"
+    extra_context = {"group_name_short": group_details.get_group_name_short()}
+
+
+class FleetListView(ListView):
+    paginate_by = 5
+    model = Fleet
+    template_name = "register/fleet.html"
+    context_object_name = "fleet_list"
     extra_context = {"group_name_short": group_details.get_group_name_short()}
 
 

@@ -26,9 +26,6 @@
                 <th>Nazwa</th>
                 <th>Kategoria</th>
                 <th>Ilość sztuk</th>
-                <th>Data zakupu</th>
-                <th>Data ostatniego serwisu</th>
-                <th>Przebieg (km)</th>
                 <th>Uwagi</th>
             </tr>
             </thead>
@@ -39,9 +36,6 @@
                 <td class="equipment-name-cell">{{ equipment.name }}</td>
                 <td class="equipment-category-cell">{{ equipment.category }}</td>
                 <td>{{ equipment.amount|default:"-" }}</td>
-                <td>{{ equipment.purchase_date|date:"SHORT_DATE_FORMAT"|default:"-" }}</td>
-                <td>{{ equipment.last_service_date|date:"SHORT_DATE_FORMAT"|default:"-" }}</td>
-                <td>{{ equipment.mileage|default:"-" }}</td>
                 <td class="equipment-comment-cell">{{ equipment.additional_notes|slice:"200"|default:"-" }}</td>
                 <td>Więcej/Edytuj &raquo;</td>
             </tr>

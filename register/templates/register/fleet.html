@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+{{ group_name_short }} - Flota
+{% endblock %}
+
+{% block css_files %}
+<link rel="stylesheet" href="{% static 'register/fleet.css' %}">
+{% endblock %}
+
+{% block content %}
+<section id="main-fleet-section">
+    <div class="fleet-page-title">
+        <p>FLOTA</p>
+    </div>
+
+    <div>
+        {% if fleet_list|length == 0 %}
+        <p>Brak floty do wyświetlenia.</p>
+        {% else %}
+        <table>
+            <thead>
+            <tr>
+                <th>Lp.</th>
+                <th>Marka</th>
+                <th>Model</th>
+                <th>Rok</th>
+                <th>Paliwo</th>
+                <th>Data ostatniego serwisu</th>
+                <th>Przebieg (km)</th>
+                <th>Max osób</th>
+                <th>Max psów</th>
+                <th>Uwagi</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for fleet in fleet_list %}
+            <tr>
+                <td class="fleet-lp-cell">{{ forloop.counter0|add:page_obj.start_index }}.</td>
+                <td>{{ fleet.brand_name }}</td>
+                <td>{{ fleet.brand_model }}</td>
+                <td>{{ fleet.year|date:"SHORT_DATE_FORMAT" }}</td>
+                <td>{{ fleet.fuel|default:"-" }}</td>
+                <td>{{ fleet.last_service_date|date:"SHORT_DATE_FORMAT"|default:"-" }}</td>
+                <td>{{ fleet.mileage|default:"-" }}</td>
+                <td>{{ fleet.max_passengers|default:"-" }}</td>
+                <td>{{ fleet.max_dogs|default:"-" }}</td>
+                <td class="fleet-comment-cell">{{ fleet.additional_notes|slice:"200"|default:"-" }}</td>
+                <td>Więcej/Edytuj &raquo;</td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        {% endif %}
+    </div>
+
+    <div class="pagination">
+        <span>
+            {% if page_obj.has_previous %}
+                <a href="?page=1">&laquo; pierwsza</a>
+                <a href="?page={{ page_obj.previous_page_number }}">poprzednia</a> |
+            {% endif %}
+
+            <span>
+                Strona {{ page_obj.number }} z {{ page_obj.paginator.num_pages }}
+            </span>
+
+            {% if page_obj.has_next %}
+                | <a href="?page={{ page_obj.next_page_number }}"> następna</a>
+                <a href="?page={{ page_obj.paginator.num_pages }}">ostatnia &raquo;</a>
+            {% endif %}
+        </span>
+    </div>
+</section>
+{% endblock %}
