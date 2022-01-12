@@ -140,7 +140,7 @@ class Fleet(models.Model):
                                           validators=[MaxValueValidator(999999)])
     max_passengers = models.PositiveIntegerField(null=True, blank=True, verbose_name="Ilość osób")
     max_dogs = models.PositiveIntegerField(null=True, blank=True, verbose_name="Ilość psów")
-    additional_notes = models.TextField(max_length=500, null=True, blank=True, verbose_name="Uwagi")
+    additional_notes = models.TextField(max_length=150, null=True, blank=True, verbose_name="Uwagi")
 
     def __str__(self):
         return f"{self.brand_name} {self.brand_model} ({self.year})"
