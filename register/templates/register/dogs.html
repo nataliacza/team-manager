@@ -14,6 +14,11 @@
     <div class="dog-page-title">
         <p>PSY</p>
     </div>
+    <div class="dog-add-section">
+        <button type="button" class="dog-add-button">
+            <a href="{% url 'register:dodaj-psa' %}">Dodaj psa</a>
+        </button>
+    </div>
 
     <div>
         {% if dog_list|length == 0 %}

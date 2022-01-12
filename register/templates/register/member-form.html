@@ -19,7 +19,7 @@
             {% csrf_token %}
             <div class="member-form-fields">
                 <div class="member-form-image-section">
-                    <img src="{% static 'images/default-member.png' %}" alt="member-picture">
+                    <img src="{% static 'images/default-member.png' %}" class="member-form-image" alt="member-picture">
                     <p>{{ form.member_image }}</p>
                 </div>
                 <div class="member-form-data-section">

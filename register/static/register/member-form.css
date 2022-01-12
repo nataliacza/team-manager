@@ -43,13 +43,12 @@ p {
     margin-bottom: 10px;
 }
 
-img {
+.member-form-image {
     width: 350px;
     height: 350px;
     margin-bottom: 20px;
-    border-radius: 50%
+    border-radius: 50%;
 }
-
 
 .member-form-data-section {
     display: flex;
