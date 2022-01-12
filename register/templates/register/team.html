@@ -14,6 +14,11 @@
     <div class="member-page-title">
         <p>ZESPÓŁ</p>
     </div>
+    <div class="member-add-section">
+        <button type="button" class="member-add-button">
+            <a href="{% url 'register:dodaj-czlonka' %}">Dodaj członka</a>
+        </button>
+    </div>
 
     <div>
         {% if member_list|length == 0 %}

@@ -42,7 +42,7 @@
                 <td class="dog-lp-cell">{{ forloop.counter0|add:page_obj.start_index }}.</td>
                 <td class="dog-image-cell">
                     {% if not dog.dog_image %}
-                    <img src="{% static 'images/default-dog.jpg' %}" alt="dog-picture">
+                    <img src="{% static 'images/default-dog.png' %}" alt="dog-picture">
                     {% else %}
                     <img src="{{ dog.dog_image.url }}" alt="dog-picture">
                     {% endif %}
