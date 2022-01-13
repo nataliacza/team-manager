@@ -4,7 +4,7 @@ from django.views.generic import ListView, TemplateView, CreateView
 
 from x_personalized_settings import group_details
 from register.models import Dog, Fleet, Equipment, Member
-from register.forms import MemberForm, DogForm
+from register.forms import MemberForm, DogForm, FleetForm
 
 
 class HomeView(TemplateView):
@@ -60,4 +60,12 @@ class DogCreateView(LoginRequiredMixin, CreateView):
     form_class = DogForm
     template_name = "register/dog-form.html"
     success_url = reverse_lazy("register:psy")
+    extra_context = {"group_name_short": group_details.get_group_name_short()}
+
+
+class FleetCreateView(LoginRequiredMixin, CreateView):
+    model = Fleet
+    form_class = FleetForm
+    template_name = "register/fleet-form.html"
+    success_url = reverse_lazy("register:flota")
     extra_context = {"group_name_short": group_details.get_group_name_short()}

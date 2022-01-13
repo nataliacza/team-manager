@@ -1,7 +1,8 @@
 from django import forms
-from django.forms import TextInput, FileInput, Select, EmailInput, SelectMultiple, DateInput
+from django.forms import (TextInput, FileInput, Select, EmailInput, SelectMultiple, DateInput, NumberInput,
+                          Textarea,)
 
-from register.models import Member, Dog, Equipment, EquipmentCategory
+from register.models import Member, Dog, Fleet, Equipment, EquipmentCategory
 
 
 class MemberForm(forms.ModelForm):
@@ -40,6 +41,23 @@ class DogForm(forms.ModelForm):
             "ruins_exam_0": Select(),
             "ruins_exam_1": Select(),
             "owner": Select(),
+        }
+
+
+class FleetForm(forms.ModelForm):
+    class Meta:
+        model = Fleet
+        fields = ["brand_name", "brand_model", "year", "fuel", "last_service_date", "mileage", "max_passengers",
+                  "max_dogs", "additional_notes"]
+        widgets = {
+            "brand_name": TextInput(),
+            "brand_model": TextInput(),
+            "year": NumberInput(),
+            "fuel": Select(),
+            "last_service_date": DateInput(),
+            "mileage": NumberInput(),
+            "max_passengers": NumberInput(),
+            "additional_notes": Textarea(),
         }
 
 

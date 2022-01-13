@@ -8,6 +8,35 @@
     margin-top: 50px;
 }
 
+.fleet-page-title {
+    text-align: center;
+}
+
+.fleet-page-title p {
+    font-size: 30px;
+    font-weight: bold;
+}
+
+.fleet-add-section {
+    display: flex;
+    justify-content: right;
+    margin-bottom: 10px;
+}
+
+.fleet-add-button {
+    background-color: green;
+    border-radius: 5px;
+}
+
+.fleet-add-button a:hover {
+    font-weight: bold;
+}
+
+.fleet-add-button a {
+    color: white;
+    text-decoration: none;
+}
+
 table {
   align-self: flex-start;
   text-align: center;
@@ -34,16 +63,6 @@ td {
   overflow-wrap: break-word;
 }
 
-.fleet-page-title {
-    text-align: center;
-    margin-bottom: 20px;
-}
-
-.fleet-page-title p {
-    font-size: 30px;
-    font-weight: bold;
-}
-
 .fleet-lp-cell {
     width: 50px;
     text-align: right;
@@ -57,6 +76,10 @@ td {
     max-width: 400px;
     padding: 12px;
     overflow: hidden;
+}
+
+.fleet-form-data-section {
+
 }
 
 .pagination {

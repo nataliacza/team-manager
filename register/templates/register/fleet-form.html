@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+{{ group_name_short }} - Dodaj Pojazd
+{% endblock %}
+
+{% block css_files %}
+<link rel="stylesheet" href="{% static 'register/fleet-form.css' %}">
+{% endblock %}
+
+{% block content %}
+<section id="main-fleet-form-section">
+    <div class="fleet-form-header">
+        <p>Dodaj pojazd</p>
+    </div>
+    <div>
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="fleet-form-fields">
+                <div class="fleet-form-data-section">
+                    <div>
+                        <p>{{ form.brand_name.label }} *:</p>
+                        <p>{{ form.brand_name }}</p>
+                        <p>{{ form.brand_model.label }} *:</p>
+                        <p>{{ form.brand_model }}</p>
+                        <p>{{ form.year.label }} *:</p>
+                        <p>{{ form.year }}</p>
+                        <p>{{ form.fuel.label }}:</p>
+                        <p>{{ form.fuel }}</p>
+                        <p>{{ form.last_service_date.label }}:</p>
+                        <p>{{ form.last_service_date }}</p>
+                        <p>{{ form.mileage.label }}:</p>
+                        <p>{{ form.mileage }}</p>
+                        <p>{{ form.max_passengers.label }}:</p>
+                        <p>{{ form.max_passengers }}</p>
+                        <p>{{ form.max_dogs.label }}:</p>
+                        <p>{{ form.max_dogs }}</p>
+                        <p class="fleet-mandatory-field">* Pole obowiązkowe.</p>
+                    </div>
+                    <div>
+                        <p>{{ form.additional_notes.label }}:</p>
+                        <p>{{ form.additional_notes }}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="fleet-form-buttons">
+                <button type="button" class="fleet-form-button-back">
+                    <a href="{% url 'register:flota' %}">Powrót</a>
+                </button>
+                <button type="submit" class="fleet-form-button-save">Zapisz</button>
+            </div>
+        </form>
+    </div>
+</section>
+{% endblock %}
