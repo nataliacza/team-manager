@@ -36,12 +36,31 @@ td {
 
 .member-page-title {
     text-align: center;
-    margin-bottom: 20px;
 }
 
 .member-page-title p {
     font-size: 30px;
     font-weight: bold;
+}
+
+.member-add-section {
+    display: flex;
+    justify-content: right;
+    margin-bottom: 10px;
+}
+
+.member-add-button {
+    background-color: green;
+    border-radius: 5px;
+}
+
+.member-add-button a:hover {
+    font-weight: bold;
+}
+
+.member-add-button a {
+    color: white;
+    text-decoration: none;
 }
 
 .member-lp-cell {

@@ -16,7 +16,7 @@
 -[ ] work around image weight validation
 -[ ] work around image max size parameters
 -[ ] change kpp_course, medical_exam field Y/N to date (future: add notifications for exam end date)
--[ ] change owned_dog FK to many-to-many relation
+-[x] change owned_dog FK to many-to-many relation
 
 
 #### Templates:
@@ -24,6 +24,10 @@
 - [ ] create root css file
 - [ ] add active page styling
 - [ ] update table header as dynamic
+
+
+#### Forms:
+- [ ] add popup confirmation if form is valid or not
 
 
 ...TBC...

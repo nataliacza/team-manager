@@ -19,13 +19,13 @@
             {% csrf_token %}
             <div class="member-form-fields">
                 <div class="member-form-image-section">
-                    <img src="{% static 'images/default-member.png' %}" alt="member-picture">
+                    <img src="{% static 'images/default-member.png' %}" class="member-form-image" alt="member-picture">
                     <p>{{ form.member_image }}</p>
                 </div>
                 <div class="member-form-data-section">
-                    <p>{{ form.member_name.label }}:</p>
+                    <p>{{ form.member_name.label }} *:</p>
                     <p>{{ form.member_name }}</p>
-                    <p>{{ form.member_surname.label }}:</p>
+                    <p>{{ form.member_surname.label }} *:</p>
                     <p>{{ form.member_surname }}</p>
                     <p>{{ form.member_mobile.label }}:</p>
                     <p>{{ form.member_mobile }}</p>
@@ -42,15 +42,16 @@
                     <p>{{ form.owned_dog.label }}:</p>
                     <p>{{ form.owned_dog }}</p>
                     <p class="member-multiple-dog-selection">Przytrzymaj Ctrl, aby wybrać kilka rekordów.</p>
+                    <p class="member-mandatory-field">* Pole obowiązkowe.</p>
                     <div>
                     </div>
                 </div>
             </div>
             <div class="member-form-buttons">
-                <button type="button">
-                    <a href="{% url 'register:zespol' %}" style="text-decoration:none; color:black">Porwót</a>
+                <button type="button" class="member-form-button-back">
+                    <a href="{% url 'register:zespol' %}">Powrót</a>
                 </button>
-                <button type="submit" onclick="alert('Rekord zapisany')">Zapisz</button>
+                <button type="submit" class="member-form-button-save">Zapisz</button>
             </div>
         </form>
     </div>

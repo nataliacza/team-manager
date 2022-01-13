@@ -2,7 +2,7 @@
     margin: 0;
 }
 
-#main-member-form-section {
+#main-dog-form-section {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -11,17 +11,17 @@
     margin-top: 50px;
 }
 
-.member-form-header {
+.dog-form-header {
     text-align: center;
     margin-bottom: 20px;
 }
 
-.member-form-header p {
+.dog-form-header p {
     font-size: 30px;
     font-weight: bold;
 }
 
-.member-form-fields {
+.dog-form-fields {
     width: 50vw;
     display: flex;
     flex-direction: row;
@@ -34,7 +34,7 @@ p {
     display: inline;
 }
 
-.member-form-image-section {
+.dog-form-image-section {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -43,63 +43,55 @@ p {
     margin-bottom: 10px;
 }
 
-.member-form-image {
+.dog-form-image {
     width: 350px;
     height: 350px;
     margin-bottom: 20px;
-    border-radius: 50%;
+    border-radius: 50%
 }
 
-.member-form-data-section {
+
+.dog-form-data-section {
     display: flex;
     flex-direction: column;
 }
 
-.member-form-data-section p {
+.dog-form-data-section p {
     display: flex;
     flex-direction: column;
     width: 40vh;
     padding: 3px;
 }
 
-.member-multiple-dog-selection {
+.dog-mandatory-field {
     font-size: 12px;
     font-style: italic;
 }
 
-.member-mandatory-field {
-    font-size: 12px;
-    font-style: italic;
-}
-
-.member-add-new-dog {
-    margin-top: 10px;
-}
-
-.member-form-buttons {
+.dog-form-buttons {
     display: flex;
     justify-content: space-around;
 }
 
-.member-form-button-back {
+.dog-form-button-back {
     border-radius: 5px;
 }
 
-.member-form-button-back a {
+.dog-form-button-back a {
     color: black;
     text-decoration: none;
 }
 
-.member-form-button-back a:hover {
+.dog-form-button-back a:hover {
     font-weight: bold;
 }
 
-.member-form-button-save {
+.dog-form-button-save {
     background-color: green;
     border-radius: 5px;
     color: white;
 }
 
-.member-form-button-save:hover {
+.dog-form-button-save:hover {
     font-weight: bold;
 }

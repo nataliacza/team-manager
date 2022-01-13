@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+{{ group_name_short }} - Dodaj Psa
+{% endblock %}
+
+{% block css_files %}
+<link rel="stylesheet" href="{% static 'register/dog-form.css' %}">
+{% endblock %}
+
+{% block content %}
+<section id="main-dog-form-section">
+    <div class="dog-form-header">
+        <p>Dodaj psa</p>
+    </div>
+    <div>
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="dog-form-fields">
+                <div class="dog-form-image-section">
+                    <img src="{% static 'images/default-dog.png' %}" class="dog-form-image" alt="dog-picture">
+                    <p>{{ form.dog_image }}</p>
+                </div>
+                <div class="dog-form-data-section">
+                    <p>{{ form.dog_name.label }} *:</p>
+                    <p>{{ form.dog_name }}</p>
+                    <p>{{ form.breeder.label }}:</p>
+                    <p>{{ form.breeder }}</p>
+                    <p>{{ form.gender.label }} *:</p>
+                    <p>{{ form.gender }}</p>
+                    <p>{{ form.day_of_birth.label }} (RRRR-MM-DD) *:</p>
+                    <p>{{ form.day_of_birth }}</p>
+                    <p>{{ form.chip_number.label }}:</p>
+                    <p>{{ form.chip_number }}</p>
+                    <p>{{ form.field_exam_0.label }}:</p>
+                    <p>{{ form.field_exam_0 }}</p>
+                    <p>{{ form.field_exam_1.label }}:</p>
+                    <p>{{ form.field_exam_1 }}</p>
+                    <p>{{ form.ruins_exam_0.label }}:</p>
+                    <p>{{ form.ruins_exam_0 }}</p>
+                    <p>{{ form.ruins_exam_1.label }}:</p>
+                    <p>{{ form.ruins_exam_1 }}</p>
+                    <p>{{ form.owner.label }} *:</p>
+                    <p>{{ form.owner }}</p>
+                    <p class="dog-mandatory-field">* Pole obowiązkowe.</p>
+                    <div>
+                    </div>
+                </div>
+            </div>
+            <div class="dog-form-buttons">
+                <button type="button" class="dog-form-button-back">
+                    <a href="{% url 'register:psy' %}">Powrót</a>
+                </button>
+                <button type="submit" class="dog-form-button-save">Zapisz</button>
+            </div>
+        </form>
+    </div>
+</section>
+{% endblock %}

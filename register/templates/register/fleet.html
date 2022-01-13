@@ -14,6 +14,11 @@
     <div class="fleet-page-title">
         <p>FLOTA</p>
     </div>
+    <div class="fleet-add-section">
+        <button type="button" class="fleet-add-button">
+            <a href="{% url 'register:dodaj-pojazd' %}">Dodaj pojazd</a>
+        </button>
+    </div>
 
     <div>
         {% if fleet_list|length == 0 %}
@@ -46,7 +51,7 @@
                 <td>{{ fleet.mileage|default:"-" }}</td>
                 <td>{{ fleet.max_passengers|default:"-" }}</td>
                 <td>{{ fleet.max_dogs|default:"-" }}</td>
-                <td class="fleet-comment-cell">{{ fleet.additional_notes|slice:"200"|default:"-" }}</td>
+                <td class="fleet-comment-cell">{{ fleet.additional_notes|slice:"150"|default:"-" }}</td>
                 <td>Więcej/Edytuj &raquo;</td>
             </tr>
             {% endfor %}
