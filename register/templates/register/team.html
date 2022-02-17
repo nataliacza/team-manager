@@ -59,8 +59,10 @@
                 <td>{{ member.medical_exam|default:"-" }}</td>
                 <td>{{ member.dog_guide_course|default:"-" }}</td>
                 <td>{{ member.osp_course|default:"-" }}</td>
-                <td>{% for dog in member.owned_dog.all %}
-                        <p>{{ dog.dog_name|default:"-" }}</p>
+                <td>{% for dog in member.dogs.all %}
+                        <p>{{ dog.dog_name }}</p>
+                    {% empty %}
+                        <p>-</p>
                     {% endfor %}</td>
                 <td>Więcej/Edytuj &raquo;</td>
             </tr>

@@ -9,7 +9,7 @@ class MemberForm(forms.ModelForm):
     class Meta:
         model = Member
         fields = ["member_image", "member_name", "member_surname", "member_mobile", "member_email", "kpp_course",
-                  "medical_exam", "dog_guide_course", "osp_course", "owned_dog"]
+                  "medical_exam", "dog_guide_course", "osp_course"]
         widgets = {
             "member_image": FileInput(),
             "member_name": TextInput(),
@@ -20,7 +20,6 @@ class MemberForm(forms.ModelForm):
             "medical_exam": Select(),
             "dog_guide_course": Select(),
             "osp_course": Select(),
-            "owned_dog": SelectMultiple(),
         }
 
 
@@ -28,7 +27,7 @@ class DogForm(forms.ModelForm):
     class Meta:
         model = Dog
         fields = ["dog_image", "dog_name", "breeder", "gender", "day_of_birth", "chip_number",
-                  "field_exam_0", "field_exam_1", "ruins_exam_0", "ruins_exam_1", "owner"]
+                  "field_exam_0", "field_exam_1", "ruins_exam_0", "ruins_exam_1"]
         widgets = {
             "dog_image": FileInput(),
             "dog_name": TextInput(),
@@ -40,7 +39,6 @@ class DogForm(forms.ModelForm):
             "field_exam_1": Select(),
             "ruins_exam_0": Select(),
             "ruins_exam_1": Select(),
-            "owner": Select(),
         }
 
 
