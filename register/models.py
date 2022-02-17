@@ -40,10 +40,10 @@ GENDER_CHOICES = (
     ("Pies", "Pies"),
 )
 
-YES_NO_CHOICES = (
-    ("TAK", "Tak"),
-    ("NIE", "Nie"),
-)
+# YES_NO_CHOICES = (
+#     ("TAK", "Tak"),
+#     ("NIE", "Nie"),
+# )
 
 FUEL_CHOICES = (
     ("Benzyna", "Benzyna"),
@@ -63,14 +63,14 @@ class Member(models.Model):
     member_mobile = models.IntegerField(null=True, blank=True, verbose_name="Telefon")
     member_email = models.EmailField(null=True, blank=True, verbose_name="Email",
                                      validators=[MinLengthValidator(6), EmailValidator])
-    kpp_course = models.CharField(max_length=3, choices=YES_NO_CHOICES, null=True, blank=True, verbose_name="KPP")
-    medical_exam = models.CharField(max_length=3, choices=YES_NO_CHOICES, null=True, blank=True,
-                                    verbose_name="Badania Lekarskie")
-    dog_guide_course = models.CharField(max_length=3, choices=YES_NO_CHOICES, null=True, blank=True,
-                                        verbose_name="Kurs Przewodników")
-    osp_course = models.CharField(max_length=3, choices=YES_NO_CHOICES, null=True, blank=True,
-                                  verbose_name="Kurs OSP")
-    owned_dog = models.ManyToManyField("Dog", blank=True, default=None, related_name="member", verbose_name="psy")
+    kpp_course = models.BooleanField(null=True, blank=True, verbose_name="KPP")
+    kpp_validity = models.DateField(null=True, blank=True, verbose_name="Termin ważności KPP")
+    medical_exam = models.BooleanField(null=True, blank=True, verbose_name="Badania Lekarskie")
+    medical_exam_validity = models.DateField(null=True, blank=True, verbose_name="Termin ważności badań")
+    dog_guide_course = models.BooleanField(null=True, blank=True, verbose_name="Kurs Przewodników")
+    osp_course = models.BooleanField(null=True, blank=True, verbose_name="Kurs OSP")
+    # owned_dog = models.ForeignKey("Dog", blank=True, default=None, on_delete=models.CASCADE, verbose_name="psy",
+    #                               related_name="members")
 
     def get_full_name(self):
         return f"{self.member_name} {self.member_surname}"
@@ -90,18 +90,14 @@ class Dog(models.Model):
     gender = models.CharField(max_length=4, choices=GENDER_CHOICES, null=False, blank=False, verbose_name="Płeć")
     day_of_birth = models.DateField(null=False, blank=False, verbose_name="Data urodzenia",
                                     validators=[validate_future_date])
-    chip_number = models.CharField(max_length=20, null=True, blank=True, verbose_name="Numer Chipa",
+    chip_number = models.CharField(max_length=20, null=True, blank=True, verbose_name="Numer chipa",
                                    validators=[MinLengthValidator(4)])
-    field_exam_0 = models.CharField(max_length=3, choices=YES_NO_CHOICES, verbose_name="Egzamin teren 0",
-                                    null=True, blank=True)
-    field_exam_1 = models.CharField(max_length=3, choices=YES_NO_CHOICES, verbose_name="Egzamin teren 1",
-                                    null=True, blank=True)
-    ruins_exam_0 = models.CharField(max_length=3, choices=YES_NO_CHOICES, verbose_name="Egzamin gruzy 0",
-                                    null=True, blank=True)
-    ruins_exam_1 = models.CharField(max_length=3, choices=YES_NO_CHOICES, verbose_name="Egzamin gruzy 1",
-                                    null=True, blank=True)
-    owner = models.ForeignKey("Member", null=False, blank=False, verbose_name="Właściciel",
-                              on_delete=models.CASCADE, related_name="dog")
+    field_exam_0 = models.BooleanField(null=True, blank=True, verbose_name="Egzamin teren 0")
+    field_exam_1 = models.BooleanField(null=True, blank=True, verbose_name="Egzamin teren 1")
+    ruins_exam_0 = models.BooleanField(null=True, blank=True, verbose_name="Egzamin gruzy 0")
+    ruins_exam_1 = models.BooleanField(null=True, blank=True, verbose_name="Egzamin gruzy 1")
+    owner = models.ForeignKey("Member", on_delete=models.CASCADE, null=True, blank=True, related_name="dogs",
+                              verbose_name="Właściciel")
 
     def __str__(self):
         return f"{self.dog_name}"
