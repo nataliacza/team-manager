@@ -1,6 +1,5 @@
 from django import forms
-from django.forms import (TextInput, FileInput, Select, EmailInput, SelectMultiple, DateInput, NumberInput,
-                          Textarea,)
+from django.forms import (TextInput, FileInput, Select, EmailInput, DateInput, NumberInput, Textarea,)
 
 from register.models import Member, Dog, Fleet, Equipment, EquipmentCategory
 
@@ -9,7 +8,8 @@ class MemberForm(forms.ModelForm):
     class Meta:
         model = Member
         fields = ["member_image", "member_name", "member_surname", "member_mobile", "member_email", "kpp_course",
-                  "medical_exam", "dog_guide_course", "osp_course"]
+                  "kpp_validity", "medical_exam", "medical_exam_validity", "dog_guide_course", "osp_course"]
+
         widgets = {
             "member_image": FileInput(),
             "member_name": TextInput(),
@@ -17,7 +17,9 @@ class MemberForm(forms.ModelForm):
             "member_mobile": TextInput(),
             "member_email": EmailInput(),
             "kpp_course": Select(),
+            "kpp_validity": DateInput(),
             "medical_exam": Select(),
+            "medical_exam_validity": DateInput(),
             "dog_guide_course": Select(),
             "osp_course": Select(),
         }
@@ -27,7 +29,8 @@ class DogForm(forms.ModelForm):
     class Meta:
         model = Dog
         fields = ["dog_image", "dog_name", "breeder", "gender", "day_of_birth", "chip_number",
-                  "field_exam_0", "field_exam_1", "ruins_exam_0", "ruins_exam_1"]
+                  "field_exam_0", "field_exam_1", "ruins_exam_0", "ruins_exam_1", "owner"]
+
         widgets = {
             "dog_image": FileInput(),
             "dog_name": TextInput(),
@@ -39,6 +42,7 @@ class DogForm(forms.ModelForm):
             "field_exam_1": Select(),
             "ruins_exam_0": Select(),
             "ruins_exam_1": Select(),
+            "owner": Select()
         }
 
 
@@ -47,6 +51,7 @@ class FleetForm(forms.ModelForm):
         model = Fleet
         fields = ["brand_name", "brand_model", "year", "fuel", "last_service_date", "mileage", "max_passengers",
                   "max_dogs", "additional_notes"]
+
         widgets = {
             "brand_name": TextInput(),
             "brand_model": TextInput(),
