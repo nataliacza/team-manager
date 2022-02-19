@@ -63,15 +63,15 @@ class Member(models.Model):
     member_mobile = models.IntegerField(null=True, blank=True, verbose_name="Telefon")
     member_email = models.EmailField(null=True, blank=True, verbose_name="Email",
                                      validators=[MinLengthValidator(6), EmailValidator])
-    kpp_course = models.CharField(max_length=3, null=True, blank=True, choices=NO_YES_CHOICES, default="NIE",
+    kpp_course = models.CharField(max_length=3, null=True, blank=True, choices=NO_YES_CHOICES,
                                   verbose_name="KPP")
     kpp_validity = models.DateField(null=True, blank=True, verbose_name="Termin ważności KPP")
-    medical_exam = models.CharField(max_length=3, null=True, blank=True, choices=NO_YES_CHOICES, default="NIE",
+    medical_exam = models.CharField(max_length=3, null=True, blank=True, choices=NO_YES_CHOICES,
                                     verbose_name="Badania Lekarskie")
     medical_exam_validity = models.DateField(null=True, blank=True, verbose_name="Termin ważności badań")
-    dog_guide_course = models.CharField(max_length=3, null=True, blank=True, choices=NO_YES_CHOICES, default="NIE",
+    dog_guide_course = models.CharField(max_length=3, null=True, blank=True, choices=NO_YES_CHOICES,
                                         verbose_name="Kurs Przewodników")
-    osp_course = models.CharField(max_length=3, null=True, blank=True, choices=NO_YES_CHOICES, default="NIE",
+    osp_course = models.CharField(max_length=3, null=True, blank=True, choices=NO_YES_CHOICES,
                                   verbose_name="Kurs OSP")
 
     class Meta:
@@ -97,13 +97,13 @@ class Dog(models.Model):
                                     validators=[validate_future_date])
     chip_number = models.CharField(max_length=20, null=True, blank=True, verbose_name="Numer chipa",
                                    validators=[MinLengthValidator(4)])
-    field_exam_0 = models.CharField(max_length=3, null=True, blank=True, choices=NO_YES_CHOICES, default="NIE",
+    field_exam_0 = models.CharField(max_length=3, null=True, blank=True, choices=NO_YES_CHOICES,
                                     verbose_name="Egzamin teren 0")
-    field_exam_1 = models.CharField(max_length=3, null=True, blank=True, choices=NO_YES_CHOICES, default="NIE",
+    field_exam_1 = models.CharField(max_length=3, null=True, blank=True, choices=NO_YES_CHOICES,
                                     verbose_name="Egzamin teren 1")
-    ruins_exam_0 = models.CharField(max_length=3, null=True, blank=True, choices=NO_YES_CHOICES, default="NIE",
+    ruins_exam_0 = models.CharField(max_length=3, null=True, blank=True, choices=NO_YES_CHOICES,
                                     verbose_name="Egzamin gruzy 0")
-    ruins_exam_1 = models.CharField(max_length=3, null=True, blank=True, choices=NO_YES_CHOICES, default="NIE",
+    ruins_exam_1 = models.CharField(max_length=3, null=True, blank=True, choices=NO_YES_CHOICES,
                                     verbose_name="Egzamin gruzy 1")
     owner = models.ForeignKey("Member", on_delete=models.CASCADE, null=True, blank=True, related_name="dogs",
                               verbose_name="Właściciel")
