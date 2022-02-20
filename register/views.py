@@ -1,10 +1,10 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
-from django.views.generic import ListView, TemplateView, CreateView
+from django.views.generic import CreateView, DetailView, ListView, TemplateView
 
 from x_personalized_settings import group_details
-from register.models import Dog, Fleet, Equipment, Member
-from register.forms import MemberForm, DogForm, FleetForm
+from register.models import Dog, Equipment, Fleet, Member
+from register.forms import DogForm, FleetForm, MemberForm
 
 
 class HomeView(TemplateView):
@@ -69,3 +69,15 @@ class FleetCreateView(LoginRequiredMixin, CreateView):
     template_name = "register/fleet-form.html"
     success_url = reverse_lazy("register:flota")
     extra_context = {"group_name_short": group_details.get_group_name_short()}
+
+
+class MemberDetailView(LoginRequiredMixin, DetailView):
+    model = Member
+    template_name = "register/member-detail-view.html"
+    context_object_name = "member"
+    extra_context = {"group_name_short": group_details.get_group_name_short()}
+
+    def get_context_data(self, **kwargs):
+        context = super(MemberDetailView, self).get_context_data(**kwargs)
+        context['object_list'] = Member.objects.filter(slug=self.kwargs['slug'])
+        return context

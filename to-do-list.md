@@ -17,6 +17,8 @@
 -[ ] work around image max size parameters
 -[ ] change kpp_course, medical_exam field Y/N to date (future: add notifications for exam end date)
 
+#### Member Detail:
+-[ ] update page title - dynamic member name
 
 #### Templates:
 - [x] create dynamic page title - depending on team name
