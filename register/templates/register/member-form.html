@@ -31,17 +31,31 @@
                     <p>{{ form.member_mobile }}</p>
                     <p>{{ form.member_email.label }}:</p>
                     <p>{{ form.member_email }}</p>
-                    <p>{{ form.kpp_course.label }}:</p>
-                    <p>{{ form.kpp_course }}</p>
-                    <p>{{ form.medical_exam.label }}:</p>
-                    <p>{{ form.medical_exam }}</p>
+                    <div>
+                        <div>
+                            <p> {{ form.kpp_course.label }}:</p>
+                            <p>{{ form.kpp_course }}</p>
+                        </div>
+                        <div>
+                            <p>{{ form.kpp_validity.label }} (DD/MM/RRRR):</p>
+                            <p>{{ form.kpp_validity }} </p>
+                        </div>
+                    </div>
+                    <div>
+                        <div>
+                            <p>{{ form.medical_exam.label }}:</p>
+                            <p>{{ form.medical_exam }}</p>
+                        </div>
+                        <div>
+                            <p>{{ form.medical_exam_validity.label }} (DD/MM/RRRR):</p>
+                            <p>{{ form.medical_exam_validity }} </p>
+                        </div>
+                    </div>
+
                     <p>{{ form.dog_guide_course.label }}:</p>
                     <p>{{ form.dog_guide_course }}</p>
                     <p>{{ form.osp_course.label }}:</p>
                     <p>{{ form.osp_course }}</p>
-                    <p>{{ form.owned_dog.label }}:</p>
-                    <p>{{ form.owned_dog }}</p>
-                    <p class="member-multiple-dog-selection">Przytrzymaj Ctrl, aby wybrać kilka rekordów.</p>
                     <p class="member-mandatory-field">* Pole obowiązkowe.</p>
                     <div>
                     </div>

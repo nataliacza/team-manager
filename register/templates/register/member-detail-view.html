@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+{{ group_name_short }} - Szczegóły ...
+{% endblock %}
+
+{% block css_files %}
+<link rel="stylesheet" href="{% static 'register/member-detail-view.css' %}">
+{% endblock %}
+
+{% block content %}
+<section>
+    <h1>{{ member.member_name }}</h1>
+    <p>{{ member.member_surname }}</p>
+</section>
+{% endblock %}

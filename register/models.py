@@ -1,3 +1,4 @@
+import uuid
 from sys import getsizeof
 from datetime import date
 from django.db import models
@@ -40,10 +41,10 @@ GENDER_CHOICES = (
     ("Pies", "Pies"),
 )
 
-# YES_NO_CHOICES = (
-#     ("TAK", "Tak"),
-#     ("NIE", "Nie"),
-# )
+NO_YES_CHOICES = (
+    ("NIE", "Nie"),
+    ("TAK", "Tak"),
+)
 
 FUEL_CHOICES = (
     ("Benzyna", "Benzyna"),
@@ -53,24 +54,30 @@ FUEL_CHOICES = (
 
 
 class Member(models.Model):
-    member_image = models.ImageField(upload_to="members/", null=True, blank=True, max_length=100,
-                                     height_field=None, width_field=None, verbose_name="Zdjęcie",
-                                     validators=[validate_image_file_extension, validate_file_size_3MB])
     member_name = models.CharField(max_length=20, null=False, blank=False, verbose_name="Imię",
                                    validators=[MinLengthValidator(2), validate_isalphabet])
     member_surname = models.CharField(max_length=20, null=False, blank=False, verbose_name="Nazwisko",
                                       validators=[MinLengthValidator(2), validate_isalphabet])
+    slug = models.SlugField(unique=True, db_index=True)
+    member_image = models.ImageField(upload_to="members/", null=True, blank=True, max_length=100,
+                                     height_field=None, width_field=None, verbose_name="Zdjęcie",
+                                     validators=[validate_image_file_extension, validate_file_size_3MB])
     member_mobile = models.IntegerField(null=True, blank=True, verbose_name="Telefon")
     member_email = models.EmailField(null=True, blank=True, verbose_name="Email",
                                      validators=[MinLengthValidator(6), EmailValidator])
-    kpp_course = models.BooleanField(null=True, blank=True, verbose_name="KPP")
+    kpp_course = models.CharField(max_length=3, null=True, blank=True, choices=NO_YES_CHOICES,
+                                  verbose_name="KPP")
     kpp_validity = models.DateField(null=True, blank=True, verbose_name="Termin ważności KPP")
-    medical_exam = models.BooleanField(null=True, blank=True, verbose_name="Badania Lekarskie")
+    medical_exam = models.CharField(max_length=3, null=True, blank=True, choices=NO_YES_CHOICES,
+                                    verbose_name="Badania Lekarskie")
     medical_exam_validity = models.DateField(null=True, blank=True, verbose_name="Termin ważności badań")
-    dog_guide_course = models.BooleanField(null=True, blank=True, verbose_name="Kurs Przewodników")
-    osp_course = models.BooleanField(null=True, blank=True, verbose_name="Kurs OSP")
-    # owned_dog = models.ForeignKey("Dog", blank=True, default=None, on_delete=models.CASCADE, verbose_name="psy",
-    #                               related_name="members")
+    dog_guide_course = models.CharField(max_length=3, null=True, blank=True, choices=NO_YES_CHOICES,
+                                        verbose_name="Kurs Przewodników")
+    osp_course = models.CharField(max_length=3, null=True, blank=True, choices=NO_YES_CHOICES,
+                                  verbose_name="Kurs OSP")
+
+    class Meta:
+        verbose_name_plural = "Lista członków"
 
     def get_full_name(self):
         return f"{self.member_name} {self.member_surname}"
@@ -80,11 +87,12 @@ class Member(models.Model):
 
 
 class Dog(models.Model):
+    dog_name = models.CharField(max_length=50, null=False, blank=False, verbose_name="Imię",
+                                validators=[MinLengthValidator(3), validate_isalphabet])
+    slug = models.SlugField(unique=True, db_index=True)
     dog_image = models.ImageField(upload_to="dogs/", null=True, blank=True, max_length=100,
                                   height_field=None, width_field=None, verbose_name="Zdjęcie",
                                   validators=[validate_image_file_extension, validate_file_size_3MB])
-    dog_name = models.CharField(max_length=50, null=False, blank=False, verbose_name="Imię",
-                                validators=[MinLengthValidator(3), validate_isalphabet])
     breeder = models.CharField(max_length=50, null=True, blank=True, verbose_name="Hodowla",
                                validators=[MinLengthValidator(3), validate_isalphabet])
     gender = models.CharField(max_length=4, choices=GENDER_CHOICES, null=False, blank=False, verbose_name="Płeć")
@@ -92,12 +100,19 @@ class Dog(models.Model):
                                     validators=[validate_future_date])
     chip_number = models.CharField(max_length=20, null=True, blank=True, verbose_name="Numer chipa",
                                    validators=[MinLengthValidator(4)])
-    field_exam_0 = models.BooleanField(null=True, blank=True, verbose_name="Egzamin teren 0")
-    field_exam_1 = models.BooleanField(null=True, blank=True, verbose_name="Egzamin teren 1")
-    ruins_exam_0 = models.BooleanField(null=True, blank=True, verbose_name="Egzamin gruzy 0")
-    ruins_exam_1 = models.BooleanField(null=True, blank=True, verbose_name="Egzamin gruzy 1")
-    owner = models.ForeignKey("Member", on_delete=models.CASCADE, null=True, blank=True, related_name="dogs",
+    field_exam_0 = models.CharField(max_length=3, null=True, blank=True, choices=NO_YES_CHOICES,
+                                    verbose_name="Egzamin teren 0")
+    field_exam_1 = models.CharField(max_length=3, null=True, blank=True, choices=NO_YES_CHOICES,
+                                    verbose_name="Egzamin teren 1")
+    ruins_exam_0 = models.CharField(max_length=3, null=True, blank=True, choices=NO_YES_CHOICES,
+                                    verbose_name="Egzamin gruzy 0")
+    ruins_exam_1 = models.CharField(max_length=3, null=True, blank=True, choices=NO_YES_CHOICES,
+                                    verbose_name="Egzamin gruzy 1")
+    owner = models.ForeignKey("Member", on_delete=models.SET_NULL, null=True, blank=True, related_name="dogs",
                               verbose_name="Właściciel")
+
+    class Meta:
+        verbose_name_plural = "Psy"
 
     def __str__(self):
         return f"{self.dog_name}"
@@ -107,17 +122,23 @@ class EquipmentCategory(models.Model):
     category = models.CharField(max_length=50, null=False, blank=False, unique=True, verbose_name="Kategoria",
                                 validators=[validate_isalphabet])
 
+    class Meta:
+        verbose_name_plural = "Kategorie sprzętu"
+
     def __str__(self):
         return f"{self.category}"
 
 
 class Equipment(models.Model):
     name = models.CharField(max_length=50, null=False, blank=False, verbose_name="Nazwa")
-    category = models.ForeignKey("EquipmentCategory", null=False, blank=False, on_delete=models.CASCADE,
+    category = models.ForeignKey("EquipmentCategory", on_delete=models.SET_NULL, null=True, blank=True,
                                  related_name="equipment", verbose_name="Kategoria")
     amount = models.PositiveIntegerField(null=True, blank=True, verbose_name="Ilość",
                                          validators=[MaxValueValidator(999)])
     additional_notes = models.TextField(max_length=500, null=True, blank=True, verbose_name="Uwagi")
+
+    class Meta:
+        verbose_name_plural = "Sprzęt"
 
     def __str__(self):
         return f"{self.name}"
@@ -137,6 +158,9 @@ class Fleet(models.Model):
     max_passengers = models.PositiveIntegerField(null=True, blank=True, verbose_name="Ilość osób")
     max_dogs = models.PositiveIntegerField(null=True, blank=True, verbose_name="Ilość psów")
     additional_notes = models.TextField(max_length=150, null=True, blank=True, verbose_name="Uwagi")
+
+    class Meta:
+        verbose_name_plural = "Flota"
 
     def __str__(self):
         return f"{self.brand_name} {self.brand_model} ({self.year})"
