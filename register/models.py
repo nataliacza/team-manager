@@ -1,4 +1,3 @@
-import uuid
 from sys import getsizeof
 from datetime import date
 from django.db import models
@@ -62,7 +61,7 @@ class Member(models.Model):
     member_image = models.ImageField(upload_to="members/", null=True, blank=True, max_length=100,
                                      height_field=None, width_field=None, verbose_name="Zdjęcie",
                                      validators=[validate_image_file_extension, validate_file_size_3MB])
-    member_mobile = models.IntegerField(null=True, blank=True, verbose_name="Telefon")
+    member_mobile = models.IntegerField(null=True, blank=True, verbose_name="Kontakt")
     member_email = models.EmailField(null=True, blank=True, verbose_name="Email",
                                      validators=[MinLengthValidator(6), EmailValidator])
     kpp_course = models.CharField(max_length=3, null=True, blank=True, choices=NO_YES_CHOICES,

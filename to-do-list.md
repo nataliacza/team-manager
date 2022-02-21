@@ -19,6 +19,7 @@
 
 #### Member Detail:
 -[ ] update page title - dynamic member name
+-[ ] get dynamic column names from db (.label works only in forms)
 
 #### Templates:
 - [x] create dynamic page title - depending on team name
