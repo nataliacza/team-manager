@@ -57,7 +57,7 @@
 .member-detail-general {
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    margin-top: 70px;
 }
 
 .member-details-buttons {
