@@ -11,57 +11,90 @@
 {% endblock %}
 
 {% block content %}
-<section id="main-member-detail-section">
-    <div>
-        <div>
-            {{ member.member_image }}
+<div class="member-detail-general">
+    <section id="member-detail-section">
+        <div class="member-detail-left">
+            <div class="member-detail-picture">
+                {% if not member.member_image %}
+                    <img class="member-picture" src="{% static 'images/default-member.png' %}" alt="member-picture">
+                {% else %}
+                    <img class="member-picture" src="{{ member.member_image.url }}" alt="member-picture">
+                {% endif %}
+            </div>
+            <div class="member-detail-basic-data">
+                <p class="member-name-surname">{{ member.member_name }}</p>
+                <p class="member-name-surname">{{ member.member_surname }}</p>
+                <p class="member-name-id">ID: {{ member.id }}</p>
+            </div>
         </div>
-        <div>
-            <p>{{ member.member_name }} {{ member.member_surname }}</p>
-            <p>ID: {{ member.id}}</p>
-        </div>
-    </div>
 
-    <div>
         <div>
-            <p>{% get_field_verbose_name member "member_mobile" %}:</p>
-            <p>{% get_field_verbose_name member "member_email" %}:</p>
-            <p>{% get_field_verbose_name member "kpp_course" %}:</p>
-            <p>{% get_field_verbose_name member "kpp_validity" %}:</p>
-            <p>{% get_field_verbose_name member "medical_exam" %}:</p>
-            <p>{% get_field_verbose_name member "medical_exam_validity" %}:</p>
-            <p>{% get_field_verbose_name member "dog_guide_course" %}:</p>
-            <p>{% get_field_verbose_name member "osp_course" %}:</p>
-            <p>Psy:</p>
+            <div class="member-detail-data">
+                <p>{% get_field_verbose_name member "member_mobile" %}:</p>
+                <p>{{ member.member_mobile|default_if_none:"-" }}</p>
+            </div>
+            <div class="member-detail-data">
+                <p>{% get_field_verbose_name member "member_email" %}:</p>
+                <p>{{ member.member_email|default_if_none:"-" }}</p>
+            </div>
+            <div class="member-detail-data">
+                <p>{% get_field_verbose_name member "kpp_course" %}:</p>
+                <p>{{ member.kpp_course|default_if_none:"-" }}</p>
+            </div>
+            <div class="member-detail-data">
+                <p>{% get_field_verbose_name member "kpp_validity" %}:</p>
+                {% if not member.medical_exam_validity %}
+                <p>{{ member.kpp_validity|default_if_none:"-" }}</p>
+                {% else %}
+                <p>{{ member.kpp_validity|date:"d/m/Y" }}</p>
+                {% endif %}
+            </div>
+            <div class="member-detail-data">
+                <p>{% get_field_verbose_name member "medical_exam" %}:</p>
+                <p>{{ member.medical_exam|default_if_none:"-" }}</p>
+            </div>
+            <div class="member-detail-data">
+                <p>{% get_field_verbose_name member "medical_exam_validity" %}:</p>
+                {% if not member.medical_exam_validity %}
+                <p>{{ member.medical_exam_validity|default_if_none:"-" }}</p>
+                {% else %}
+                <p>{{ member.medical_exam_validity|date:"d/m/Y" }}</p>
+                {% endif %}
+            </div>
+            <div class="member-detail-data">
+                <p>{% get_field_verbose_name member "dog_guide_course" %}:</p>
+                <p>{{ member.dog_guide_course|default_if_none:"-" }}</p>
+            </div>
+            <div class="member-detail-data">
+                <p>{% get_field_verbose_name member "osp_course" %}:</p>
+                <p>{{ member.osp_course|default_if_none:"-" }}</p>
+            </div>
+            <div class="member-detail-data">
+                <p>Psy:</p>
+                <div class="member-dogs">
+                    {% for dog in member.dogs.all %}
+                        <p>{{ dog.dog_name }}</p>
+                    {% empty %}
+                        <p>-</p>
+                    {% endfor %}
+                </div>
+            </div>
         </div>
-        <div>
-            <p>{{ member.member_mobile }}</p>
-            <p>{{ member.member_email }}</p>
-            <p>{{ member.kpp_course }}</p>
-            <p>{{ member.kpp_validity|date:"d/m/Y" }}</p>
-            <p>{{ member.medical_exam }}</p>
-            <p>{{ member.medical_exam_validity|date:"d/m/Y" }}</p>
-            <p>{{ member.dog_guide_course }}</p>
-            <p>{{ member.osp_course }}</p>
-            {% for dog in member.dogs.all %}
-            <p>{{ dog.dog_name }}</p>
-            {% empty %}
-            <p>-</p>
-            {% endfor %}
-        </div>
-    </div>
+    </section>
 
-    <div class="member-details-buttons">
-        <div>
-            <button type="button" class="member-details-button-back">
-                <a href="{% url 'register:flota' %}">Powrót</a>
-            </button>
+    <section class="member-details-buttons-section">
+        <div class="member-details-buttons">
+            <div>
+                <button type="button" class="member-details-button-back">
+                    <a href="{% url 'register:zespol' %}">Powrót</a>
+                </button>
+            </div>
+            <div>
+                <button type="button" class="member-details-button-edit">
+                    <a href="#" >Edytuj</a>
+                </button>
+            </div>
         </div>
-        <div>
-            <button type="button" class="member-details-button-edit">
-                <a href="{% url 'register:flota' %}">Edytuj</a>
-            </button>
-        </div>
-    </div>
-</section>
+    </section>
+</div>
 {% endblock %}

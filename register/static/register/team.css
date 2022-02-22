@@ -4,8 +4,7 @@
 
 #main-team-section {
     width: 90vw;
-    align-self: start;
-    margin-top: 50px;
+    margin-top: 30px;
 }
 
 table {
@@ -89,6 +88,11 @@ img {
 .member-email-cell {
     width: 250px;
     max-width: 250px;
+}
+
+.member-detail-more {
+    color: black;
+    font-weight: bold;
 }
 
 .pagination {

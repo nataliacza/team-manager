@@ -64,7 +64,9 @@
                     {% empty %}
                         <p>-</p>
                     {% endfor %}</td>
-                <td>Więcej/Edytuj &raquo;</td>
+                <td>
+                    <a class="member-detail-more" href="{% url 'register:szczegoly-czlonka' member.slug %}">Więcej/Edytuj &raquo;</a>
+                </td>
             </tr>
             {% endfor %}
             </tbody>
