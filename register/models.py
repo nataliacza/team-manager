@@ -1,6 +1,9 @@
 from sys import getsizeof
 from datetime import date
+
 from django.db import models
+from django.utils.text import slugify
+
 from django.core.exceptions import ValidationError
 from django.core.validators import (MinLengthValidator,
                                     validate_image_file_extension,
@@ -57,7 +60,7 @@ class Member(models.Model):
                                    validators=[MinLengthValidator(2), validate_isalphabet])
     member_surname = models.CharField(max_length=20, null=False, blank=False, verbose_name="Nazwisko",
                                       validators=[MinLengthValidator(2), validate_isalphabet])
-    slug = models.SlugField(unique=True, db_index=True)
+    slug = models.SlugField(unique=True, null=False, blank=False, db_index=True)
     member_image = models.ImageField(upload_to="members/", null=True, blank=True, max_length=100,
                                      height_field=None, width_field=None, verbose_name="Zdjęcie",
                                      validators=[validate_image_file_extension, validate_file_size_3MB])
@@ -66,23 +69,32 @@ class Member(models.Model):
                                      validators=[MinLengthValidator(6), EmailValidator])
     kpp_course = models.CharField(max_length=3, null=True, blank=True, choices=NO_YES_CHOICES,
                                   verbose_name="KPP")
-    kpp_validity = models.DateField(null=True, blank=True, verbose_name="Termin ważności KPP")
+    kpp_validity = models.DateField(null=True, blank=True, default=None, verbose_name="Termin ważności KPP")
     medical_exam = models.CharField(max_length=3, null=True, blank=True, choices=NO_YES_CHOICES,
                                     verbose_name="Badania Lekarskie")
-    medical_exam_validity = models.DateField(null=True, blank=True, verbose_name="Termin ważności badań")
+    medical_exam_validity = models.DateField(null=True, blank=True, default=None, verbose_name="Termin ważności badań")
     dog_guide_course = models.CharField(max_length=3, null=True, blank=True, choices=NO_YES_CHOICES,
                                         verbose_name="Kurs Przewodników")
     osp_course = models.CharField(max_length=3, null=True, blank=True, choices=NO_YES_CHOICES,
                                   verbose_name="Kurs OSP")
 
+    def save(self, *args, **kwargs):
+        super(Member, self).save(*args, **kwargs)
+        if not self.slug:
+            slug = slugify(f"{self.member_name}-{self.member_surname}")
+            try:
+                member_obj = Member.objects.get(slug=slug)
+                slug += "-" + str(member_obj.id)
+            except Member.DoesNotExist:
+                pass
+            self.slug = slug
+            self.save()
+
     class Meta:
         verbose_name_plural = "Lista członków"
 
-    def get_full_name(self):
-        return f"{self.member_name} {self.member_surname}"
-
     def __str__(self):
-        return self.get_full_name()
+        return f"{self.member_name} {self.member_surname}"
 
 
 class Dog(models.Model):
