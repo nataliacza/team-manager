@@ -15,7 +15,8 @@
 #### Member:
 -[ ] work around image weight validation
 -[ ] work around image max size parameters
--[ ] change kpp_course, medical_exam field Y/N to date (future: add notifications for exam end date)
+-[ X ] add to kpp_course, medical_exam validity field - date (future: add notifications for exam end date)
+-[ ] update member slug field - add ID to dupliates
 
 #### Member Detail:
 -[ ] update page title - dynamic member name

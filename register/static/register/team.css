@@ -90,6 +90,11 @@ img {
     max-width: 250px;
 }
 
+.member-detail-more {
+    color: black;
+    font-weight: bold;
+}
+
 .pagination {
     margin-top: 15px;
     text-align: center;
