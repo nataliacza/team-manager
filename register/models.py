@@ -93,14 +93,17 @@ class Member(models.Model):
     class Meta:
         verbose_name_plural = "Lista członków"
 
-    def __str__(self):
+    def get_full_name(self):
         return f"{self.member_name} {self.member_surname}"
+
+    def __str__(self):
+        return self.get_full_name()
 
 
 class Dog(models.Model):
     dog_name = models.CharField(max_length=50, null=False, blank=False, verbose_name="Imię",
                                 validators=[MinLengthValidator(3), validate_isalphabet])
-    slug = models.SlugField(unique=True, db_index=True)
+    slug = models.SlugField(unique=True, null=False, blank=False, db_index=True)
     dog_image = models.ImageField(upload_to="dogs/", null=True, blank=True, max_length=100,
                                   height_field=None, width_field=None, verbose_name="Zdjęcie",
                                   validators=[validate_image_file_extension, validate_file_size_3MB])
@@ -121,6 +124,18 @@ class Dog(models.Model):
                                     verbose_name="Egzamin gruzy 1")
     owner = models.ForeignKey("Member", on_delete=models.SET_NULL, null=True, blank=True, related_name="dogs",
                               verbose_name="Właściciel")
+
+    def save(self, *args, **kwargs):
+        super(Dog, self).save(*args, **kwargs)
+        if not self.slug:
+            slug = slugify(self.dog_name)
+            try:
+                dog_obj = Dog.objects.get(slug=slug)
+                slug += "-" + str(dog_obj.id)
+            except Dog.DoesNotExist:
+                pass
+            self.slug = slug
+            self.save()
 
     class Meta:
         verbose_name_plural = "Psy"

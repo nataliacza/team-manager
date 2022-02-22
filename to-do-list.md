@@ -10,6 +10,7 @@
 -[ ] verify default dog picture upload
 -[ ] change exam field Y/N to date (future: add notifications for exam end date)
 -[ ] link exams to member (one dog can have exams with different members)
+-[ ] update dog slug field - add ID to dupliates
 
 
 #### Member:
@@ -19,8 +20,9 @@
 -[ ] update member slug field - add ID to dupliates
 
 #### Member Detail:
--[ ] update page title - dynamic member name
--[ ] get dynamic column names from db (.label works only in forms)
+- [ ] update page title - dynamic member name
+- [ ] get dynamic column names from db (.label works only in forms)
+- [ ] update date format in template DD/MM/YYY
 
 #### Templates:
 - [x] create dynamic page title - depending on team name
