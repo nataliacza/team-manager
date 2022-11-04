@@ -9,20 +9,26 @@ Why not to create some tool, which could manage everything in one place?
 
 Main goal of this project is to create all-in-one tool, that would help to manage small organizations.
 
-**:exclamation::exclamation: Project is in progress :exclamation::exclamation:**
-
 _**SAR** stands for Search and Rescue._
 
 ### Concept and functionalities
 
-Application would be available only for registered users, which are involved in team management (chief or manager).
+Application would be available only for limited users, which are involved in team management (chief or manager).
 
 Features:
-- Event and notification calendar.
-- Member list with useful information.
-- Dog list with useful information.
+- Member list with basic information.
+- Member detail page.
+- Dog list with details.
 - Equipment list with useful information.
-- Training planner.
-- Alarm system used for search actions.
+- CRUD for above-mentioned.
 
-...TBC...
+
+### Run project
+
+1. Clone the repository: `git clone https://github.com/nataliacza/team-manager`.
+2. Create new file `.env` in main directory and fill with variables as per `env.example` file.
+3. Create virtual environment using `poetry` and install all dependencies.
+4. Run migrations `python manage.py migrate`.
+5. Create superuser `python manage.py createsuperuser`, provide at least username and password.
+6. Run server `python manage.py runserver`.
+7. Add some members or dogs via endpoints or admin panel.
