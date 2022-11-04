@@ -131,8 +131,7 @@ dmypy.json
 .idea
 .idea/
 
-# Ignore migrations to minimize conflicts
-/register/migrations/
+# Other
 /uploads/dogs/
 /uploads/members/
 /team-manager-files/
